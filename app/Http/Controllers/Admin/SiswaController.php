@@ -3,52 +3,137 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Kelas;
+use App\Models\Siswa;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SiswaController extends Controller
 {
-    private $siswaList = [
-        ['id' => 1, 'nis' => '2024001', 'nama' => 'Keisha Anindya', 'kelas' => '4A', 'jenis_kelamin' => 'P', 'alamat' => 'Jl. Merdeka No. 12', 'nama_wali' => 'Budi Santoso', 'telepon_wali' => '081234567890'],
-        ['id' => 2, 'nis' => '2024002', 'nama' => 'Raka Pratama', 'kelas' => '2B', 'jenis_kelamin' => 'L', 'alamat' => 'Jl. Sudirman No. 45', 'nama_wali' => 'Siti Rahayu', 'telepon_wali' => '081298765432'],
-        ['id' => 3, 'nis' => '2024003', 'nama' => 'Naila Fitri', 'kelas' => '6A', 'jenis_kelamin' => 'P', 'alamat' => 'Jl. Gatot Subroto No. 8', 'nama_wali' => 'Ahmad Fauzi', 'telepon_wali' => '085612345678'],
-        ['id' => 4, 'nis' => '2024004', 'nama' => 'Dimas Saputra', 'kelas' => '3C', 'jenis_kelamin' => 'L', 'alamat' => 'Jl. Pahlawan No. 23', 'nama_wali' => 'Dewi Lestari', 'telepon_wali' => '087856781234'],
-        ['id' => 5, 'nis' => '2024005', 'nama' => 'Aulia Putri', 'kelas' => '1A', 'jenis_kelamin' => 'P', 'alamat' => 'Jl. Diponegoro No. 15', 'nama_wali' => 'Hendra Wijaya', 'telepon_wali' => '081345678901'],
-    ];
-
-    public function index()
+    public function index(Request $request)
     {
-        return view('admin.siswa.index', ['siswaList' => $this->siswaList]);
+        $query = Siswa::with('kelas');
+
+        if ($request->filled('cari')) {
+            $cari = $request->cari;
+            $query->where(function ($q) use ($cari) {
+                $q->where('nis', 'like', "%{$cari}%")
+                  ->orWhere('nama', 'like', "%{$cari}%");
+            });
+        }
+
+        if ($request->filled('kelas_id')) {
+            $query->where('kelas_id', $request->kelas_id);
+        }
+
+        $siswaList = $query->orderBy('nama')->paginate(15)->withQueryString();
+        $kelasList = Kelas::orderBy('tingkat')->orderBy('nama_kelas')->get();
+
+        return view('admin.siswa.index', compact('siswaList', 'kelasList'));
     }
 
     public function create()
     {
-        return view('admin.siswa.create');
+        $kelasList = Kelas::orderBy('tingkat')->orderBy('nama_kelas')->get();
+        return view('admin.siswa.create', compact('kelasList'));
     }
 
     public function store(Request $request)
     {
-        return redirect()->route('admin.siswa.index')->with('success', 'Data siswa berhasil ditambahkan (Dummy).');
+        $validated = $request->validate([
+            'nis' => 'required|string|max:20|unique:siswas,nis',
+            'nama' => 'required|string|max:100',
+            'kelas_id' => 'required|exists:kelas,id',
+            'nama_wali' => 'required|string|max:100',
+            'telepon_wali' => 'required|string|max:20',
+            'username' => 'required|string|max:50|unique:users,username',
+            'password' => 'required|string|min:6',
+        ]);
+
+        DB::transaction(function () use ($validated) {
+            $user = User::create([
+                'name' => $validated['nama_wali'],
+                'username' => $validated['username'],
+                'email' => $validated['username'] . '@spp-sukamaju.test',
+                'password' => bcrypt($validated['password']),
+                'role' => 'wali_siswa',
+            ]);
+
+            Siswa::create([
+                'nis' => $validated['nis'],
+                'nama' => $validated['nama'],
+                'kelas_id' => $validated['kelas_id'],
+                'nama_wali' => $validated['nama_wali'],
+                'telepon_wali' => $validated['telepon_wali'],
+                'user_id' => $user->id,
+            ]);
+        });
+
+        return redirect()->route('admin.siswa.index')->with('success', 'Data siswa berhasil ditambahkan.');
     }
 
     public function show($id)
     {
-        $siswa = collect($this->siswaList)->firstWhere('id', $id) ?? $this->siswaList[0];
+        $siswa = Siswa::with(['kelas', 'user'])->findOrFail($id);
         return view('admin.siswa.show', compact('siswa'));
     }
 
     public function edit($id)
     {
-        $siswa = collect($this->siswaList)->firstWhere('id', $id) ?? $this->siswaList[0];
-        return view('admin.siswa.edit', compact('siswa'));
+        $siswa = Siswa::with('user')->findOrFail($id);
+        $kelasList = Kelas::orderBy('tingkat')->orderBy('nama_kelas')->get();
+        return view('admin.siswa.edit', compact('siswa', 'kelasList'));
     }
 
     public function update(Request $request, $id)
     {
-        return redirect()->route('admin.siswa.index')->with('success', 'Data siswa berhasil diubah (Dummy).');
+        $siswa = Siswa::with('user')->findOrFail($id);
+
+        $validated = $request->validate([
+            'nis' => 'required|string|max:20|unique:siswas,nis,' . $siswa->id,
+            'nama' => 'required|string|max:100',
+            'kelas_id' => 'required|exists:kelas,id',
+            'nama_wali' => 'required|string|max:100',
+            'telepon_wali' => 'required|string|max:20',
+            'username' => 'required|string|max:50|unique:users,username,' . $siswa->user_id,
+            'password' => 'nullable|string|min:6',
+        ]);
+
+        DB::transaction(function () use ($siswa, $validated) {
+            $userData = [
+                'name' => $validated['nama_wali'],
+                'username' => $validated['username'],
+            ];
+
+            if (!empty($validated['password'])) {
+                $userData['password'] = bcrypt($validated['password']);
+            }
+
+            $siswa->user->update($userData);
+
+            $siswa->update([
+                'nis' => $validated['nis'],
+                'nama' => $validated['nama'],
+                'kelas_id' => $validated['kelas_id'],
+                'nama_wali' => $validated['nama_wali'],
+                'telepon_wali' => $validated['telepon_wali'],
+            ]);
+        });
+
+        return redirect()->route('admin.siswa.index')->with('success', 'Data siswa berhasil diubah.');
     }
 
     public function destroy($id)
     {
-        return redirect()->route('admin.siswa.index')->with('success', 'Data siswa berhasil dihapus (Dummy).');
+        $siswa = Siswa::findOrFail($id);
+
+        DB::transaction(function () use ($siswa) {
+            $userId = $siswa->user_id;
+            $siswa->delete();
+            User::destroy($userId);
+        });
+
+        return redirect()->route('admin.siswa.index')->with('success', 'Data siswa berhasil dihapus.');
     }
 }

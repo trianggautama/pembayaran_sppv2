@@ -37,6 +37,11 @@ class User extends Authenticatable
         return $this->role === $role;
     }
 
+    public function siswa(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(Siswa::class);
+    }
+
     /**
      * Get the attributes that should be cast.
      *

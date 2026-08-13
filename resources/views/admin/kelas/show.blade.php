@@ -12,15 +12,11 @@
             <div class="space-y-4">
                 <div>
                     <span class="block text-xs font-medium text-slate-500 uppercase tracking-wider mb-1">Nama Kelas</span>
-                    <span class="text-sm text-slate-900 font-medium">{{ $kelas['nama_kelas'] }}</span>
+                    <span class="text-sm text-slate-900 font-medium">{{ $kelas->nama_kelas }}</span>
                 </div>
                 <div>
                     <span class="block text-xs font-medium text-slate-500 uppercase tracking-wider mb-1">Tingkat</span>
-                    <span class="text-sm text-slate-900 font-medium">{{ $kelas['tingkat'] }}</span>
-                </div>
-                <div>
-                    <span class="block text-xs font-medium text-slate-500 uppercase tracking-wider mb-1">Jumlah Siswa</span>
-                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-lg text-sm font-medium bg-pale text-navy">{{ $kelas['jumlah_siswa'] }} Siswa</span>
+                    <span class="text-sm text-slate-900 font-medium">{{ $kelas->tingkat }}</span>
                 </div>
             </div>
         </div>
@@ -30,7 +26,7 @@
             <div class="space-y-4">
                 <div>
                     <span class="block text-xs font-medium text-slate-500 uppercase tracking-wider mb-1">Nama Wali Kelas</span>
-                    <span class="text-sm text-slate-900 font-medium">{{ $kelas['wali_kelas'] }}</span>
+                    <span class="text-sm text-slate-900 font-medium">{{ $kelas->wali_kelas }}</span>
                 </div>
             </div>
         </div>
@@ -38,7 +34,7 @@
     </div>
 
     <div class="mt-8 pt-6 border-t border-slate-100 flex items-center gap-3">
-        <a href="{{ route('admin.kelas.edit', $kelas['id']) }}" class="bg-primary text-white font-semibold text-sm px-6 py-2.5 rounded-xl hover:bg-navy transition">Edit Data</a>
+        <a href="{{ route('admin.kelas.edit', $kelas->id) }}" class="bg-primary text-white font-semibold text-sm px-6 py-2.5 rounded-xl hover:bg-navy transition">Edit Data</a>
         <a href="{{ route('admin.kelas.index') }}" class="border border-slate-200 text-slate-600 font-semibold text-sm px-6 py-2.5 rounded-xl hover:bg-slate-50 transition">Kembali ke Daftar</a>
     </div>
 </div>
