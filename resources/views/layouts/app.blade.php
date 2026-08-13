@@ -73,23 +73,52 @@
           <svg viewBox="0 0 24 24" class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
           Tahun Ajaran
         </a>
+
+        <p class="px-3 pt-6 pb-2 text-[11px] font-semibold text-sky/70 uppercase tracking-wider">Manajemen User</p>
+        <a href="{{ route('admin.profil.index') }}" class="relative flex items-center gap-3 px-3 py-2.5 rounded-xl {{ Str::startsWith($currentRoute, 'admin.profil') ? 'bg-white/10 font-medium' : 'text-sky/90 hover:bg-white/10 hover:text-white transition' }}">
+          @if(Str::startsWith($currentRoute, 'admin.profil'))
+            <span class="absolute left-0 top-1.5 bottom-1.5 w-1 rounded-full bg-primary"></span>
+          @endif
+          <svg viewBox="0 0 24 24" class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg>
+          Profil User
+        </a>
+        <a href="{{ route('admin.bendahara.index') }}" class="relative flex items-center gap-3 px-3 py-2.5 rounded-xl {{ Str::startsWith($currentRoute, 'admin.bendahara') ? 'bg-white/10 font-medium' : 'text-sky/90 hover:bg-white/10 hover:text-white transition' }}">
+          @if(Str::startsWith($currentRoute, 'admin.bendahara'))
+            <span class="absolute left-0 top-1.5 bottom-1.5 w-1 rounded-full bg-primary"></span>
+          @endif
+          <svg viewBox="0 0 24 24" class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 11h-6M19 8v6"/></svg>
+          User Bendahara
+        </a>
+        <a href="{{ route('admin.wali-siswa.index') }}" class="relative flex items-center gap-3 px-3 py-2.5 rounded-xl {{ Str::startsWith($currentRoute, 'admin.wali-siswa') ? 'bg-white/10 font-medium' : 'text-sky/90 hover:bg-white/10 hover:text-white transition' }}">
+          @if(Str::startsWith($currentRoute, 'admin.wali-siswa'))
+            <span class="absolute left-0 top-1.5 bottom-1.5 w-1 rounded-full bg-primary"></span>
+          @endif
+          <svg viewBox="0 0 24 24" class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 20v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/><circle cx="10" cy="7" r="4"/><path d="M22 20v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          User Wali Siswa
+        </a>
       @elseif(Auth::user()->isBendahara())
-        <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sky/90 hover:bg-white/10 hover:text-white transition">
+        <a href="{{ route('bendahara.siswa.index') }}" class="relative flex items-center gap-3 px-3 py-2.5 rounded-xl {{ Str::startsWith($currentRoute, 'bendahara.siswa') ? 'bg-white/10 font-medium' : 'text-sky/90 hover:bg-white/10 hover:text-white transition' }}">
+          @if(Str::startsWith($currentRoute, 'bendahara.siswa'))
+            <span class="absolute left-0 top-1.5 bottom-1.5 w-1 rounded-full bg-primary"></span>
+          @endif
           <svg viewBox="0 0 24 24" class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 20v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/><circle cx="10" cy="7" r="4"/><path d="M22 20v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
           Data Siswa
         </a>
-        <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sky/90 hover:bg-white/10 hover:text-white transition">
+        <a href="{{ route('bendahara.tagihan.index') }}" class="relative flex items-center gap-3 px-3 py-2.5 rounded-xl {{ Str::startsWith($currentRoute, 'bendahara.tagihan') ? 'bg-white/10 font-medium' : 'text-sky/90 hover:bg-white/10 hover:text-white transition' }}">
+          @if(Str::startsWith($currentRoute, 'bendahara.tagihan'))
+            <span class="absolute left-0 top-1.5 bottom-1.5 w-1 rounded-full bg-primary"></span>
+          @endif
           <svg viewBox="0 0 24 24" class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6"/><path d="M9 13h6M9 17h6"/></svg>
           Tagihan SPP
         </a>
-        <a href="#" class="flex items-center justify-between gap-3 px-3 py-2.5 rounded-xl text-sky/90 hover:bg-white/10 hover:text-white transition">
+        <a href="#" class="relative flex items-center justify-between gap-3 px-3 py-2.5 rounded-xl text-sky/90 hover:bg-white/10 hover:text-white transition">
           <span class="flex items-center gap-3">
             <svg viewBox="0 0 24 24" class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 12 2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
             Verifikasi Pembayaran
           </span>
           <span class="text-[11px] font-semibold bg-primary text-white rounded-full px-1.5 py-0.5 min-w-[18px] text-center">12</span>
         </a>
-        <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sky/90 hover:bg-white/10 hover:text-white transition">
+        <a href="#" class="relative flex items-center gap-3 px-3 py-2.5 rounded-xl text-sky/90 hover:bg-white/10 hover:text-white transition">
           <svg viewBox="0 0 24 24" class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18 17V9M13 17V5M8 17v-3"/></svg>
           Laporan Pembayaran
         </a>
