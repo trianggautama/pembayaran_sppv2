@@ -19,6 +19,11 @@ class Tagihan extends Model
         return $this->belongsTo(TahunAjaran::class);
     }
 
+    public function pembayaran()
+    {
+        return $this->belongsToMany(Pembayaran::class, 'pembayaran_tagihan');
+    }
+
     public function namaBulan(): string
     {
         $bulans = [

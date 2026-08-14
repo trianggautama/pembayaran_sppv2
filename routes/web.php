@@ -11,6 +11,8 @@ use App\Http\Controllers\Admin\BendaharaController;
 use App\Http\Controllers\Admin\WaliSiswaController;
 use App\Http\Controllers\Bendahara\TagihanController;
 use App\Http\Controllers\Bendahara\SiswaController as BendaharaSiswaController;
+use App\Http\Controllers\WaliSiswa\TagihanController as WaliSiswaTagihanController;
+use App\Http\Controllers\WaliSiswa\PembayaranController as WaliSiswaPembayaranController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', fn () => redirect('/login'));
@@ -46,5 +48,13 @@ Route::middleware('auth')->group(function () {
         Route::post('tagihan/generate', [TagihanController::class, 'generate'])->name('tagihan.generate');
         Route::get('tagihan/{tagihan}', [TagihanController::class, 'show'])->name('tagihan.show');
         Route::delete('tagihan/{tagihan}', [TagihanController::class, 'destroy'])->name('tagihan.destroy');
+    });
+
+    Route::middleware('wali_siswa')->prefix('wali-siswa')->name('wali-siswa.')->group(function () {
+        Route::get('tagihan', [WaliSiswaTagihanController::class, 'index'])->name('tagihan.index');
+        Route::get('pembayaran/create', [WaliSiswaPembayaranController::class, 'create'])->name('pembayaran.create');
+        Route::post('pembayaran', [WaliSiswaPembayaranController::class, 'store'])->name('pembayaran.store');
+        Route::get('pembayaran/{pembayaran}', [WaliSiswaPembayaranController::class, 'show'])->name('pembayaran.show');
+        Route::get('riwayat', [WaliSiswaTagihanController::class, 'riwayat'])->name('tagihan.riwayat');
     });
 });

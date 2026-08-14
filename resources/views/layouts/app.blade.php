@@ -123,11 +123,17 @@
           Laporan Pembayaran
         </a>
       @elseif(Auth::user()->isWaliSiswa())
-        <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sky/90 hover:bg-white/10 hover:text-white transition">
+        <a href="{{ route('wali-siswa.tagihan.index') }}" class="relative flex items-center gap-3 px-3 py-2.5 rounded-xl {{ $currentRoute === 'wali-siswa.tagihan.index' ? 'bg-white/10 font-medium' : 'text-sky/90 hover:bg-white/10 hover:text-white transition' }}">
+          @if($currentRoute === 'wali-siswa.tagihan.index')
+            <span class="absolute left-0 top-1.5 bottom-1.5 w-1 rounded-full bg-primary"></span>
+          @endif
           <svg viewBox="0 0 24 24" class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6"/><path d="M9 13h6M9 17h6"/></svg>
           Tagihan Saya
         </a>
-        <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sky/90 hover:bg-white/10 hover:text-white transition">
+        <a href="{{ route('wali-siswa.tagihan.riwayat') }}" class="relative flex items-center gap-3 px-3 py-2.5 rounded-xl {{ $currentRoute === 'wali-siswa.tagihan.riwayat' ? 'bg-white/10 font-medium' : 'text-sky/90 hover:bg-white/10 hover:text-white transition' }}">
+          @if($currentRoute === 'wali-siswa.tagihan.riwayat')
+            <span class="absolute left-0 top-1.5 bottom-1.5 w-1 rounded-full bg-primary"></span>
+          @endif
           <svg viewBox="0 0 24 24" class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18 17V9M13 17V5M8 17v-3"/></svg>
           Riwayat Pembayaran
         </a>
