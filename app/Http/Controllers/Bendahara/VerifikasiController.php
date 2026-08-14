@@ -61,6 +61,26 @@ class VerifikasiController extends Controller
             ->with('success', 'Pembayaran berhasil diverifikasi.');
     }
 
+    public function riwayat(Request $request)
+    {
+        $query = Pembayaran::with(['siswa.kelas', 'tagihan.tahunAjaran', 'verifiedBy'])
+            ->whereIn('status', ['diverifikasi', 'ditolak']);
+
+        $status = $request->get('status', 'semua');
+        if ($status !== 'semua') {
+            $query->where('status', $status);
+        }
+
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->whereHas('siswa', fn ($q) => $q->where('nama', 'like', "%{$search}%")->orWhere('nis', 'like', "%{$search}%"));
+        }
+
+        $pembayarans = $query->latest('verified_at')->paginate(10)->withQueryString();
+
+        return view('bendahara.verifikasi.riwayat', compact('pembayarans', 'status'));
+    }
+
     public function tolak(Request $request, Pembayaran $pembayaran)
     {
         $request->validate([

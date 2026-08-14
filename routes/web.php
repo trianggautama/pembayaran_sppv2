@@ -51,6 +51,7 @@ Route::middleware('auth')->group(function () {
         Route::delete('tagihan/{tagihan}', [TagihanController::class, 'destroy'])->name('tagihan.destroy');
 
         Route::get('verifikasi', [VerifikasiController::class, 'index'])->name('verifikasi.index');
+        Route::get('verifikasi/riwayat', [VerifikasiController::class, 'riwayat'])->name('verifikasi.riwayat');
         Route::get('verifikasi/{pembayaran}', [VerifikasiController::class, 'show'])->name('verifikasi.show');
         Route::post('verifikasi/{pembayaran}/terima', [VerifikasiController::class, 'terima'])->name('verifikasi.terima');
         Route::post('verifikasi/{pembayaran}/tolak', [VerifikasiController::class, 'tolak'])->name('verifikasi.tolak');

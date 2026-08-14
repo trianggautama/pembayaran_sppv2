@@ -112,7 +112,7 @@
           Tagihan SPP
         </a>
         @php
-            $isVerifikasiActive = Str::startsWith(request()->route()->getName(), 'bendahara.verifikasi.');
+            $isVerifikasiActive = Str::startsWith(request()->route()->getName(), 'bendahara.verifikasi.') && !Str::startsWith(request()->route()->getName(), 'bendahara.verifikasi.riwayat');
         @endphp
         <a href="{{ route('bendahara.verifikasi.index') }}" class="relative flex items-center justify-between gap-3 px-3 py-2.5 rounded-xl transition {{ $isVerifikasiActive ? 'bg-white/10 text-white font-medium' : 'text-sky/90 hover:bg-white/10 hover:text-white' }}">
           <span class="flex items-center gap-3">
@@ -123,9 +123,12 @@
           <span class="text-[11px] font-semibold bg-primary text-white rounded-full px-1.5 py-0.5 min-w-[18px] text-center">{{ $pendingPembayaranCount }}</span>
           @endif
         </a>
-        <a href="#" class="relative flex items-center gap-3 px-3 py-2.5 rounded-xl text-sky/90 hover:bg-white/10 hover:text-white transition">
+        <a href="{{ route('bendahara.verifikasi.riwayat') }}" class="relative flex items-center gap-3 px-3 py-2.5 rounded-xl {{ Str::startsWith($currentRoute, 'bendahara.verifikasi.riwayat') ? 'bg-white/10 font-medium' : 'text-sky/90 hover:bg-white/10 hover:text-white transition' }}">
+          @if(Str::startsWith($currentRoute, 'bendahara.verifikasi.riwayat'))
+            <span class="absolute left-0 top-1.5 bottom-1.5 w-1 rounded-full bg-primary"></span>
+          @endif
           <svg viewBox="0 0 24 24" class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18 17V9M13 17V5M8 17v-3"/></svg>
-          Laporan Pembayaran
+          Riwayat Pembayaran
         </a>
       @elseif(Auth::user()->isWaliSiswa())
         <a href="{{ route('wali-siswa.tagihan.index') }}" class="relative flex items-center gap-3 px-3 py-2.5 rounded-xl {{ $currentRoute === 'wali-siswa.tagihan.index' ? 'bg-white/10 font-medium' : 'text-sky/90 hover:bg-white/10 hover:text-white transition' }}">
