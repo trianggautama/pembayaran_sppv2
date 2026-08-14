@@ -16,6 +16,13 @@ class Pembayaran extends Model
         'bukti_pembayaran',
         'status',
         'catatan',
+        'alasan_ditolak',
+        'verified_by',
+        'verified_at',
+    ];
+
+    protected $casts = [
+        'verified_at' => 'datetime',
     ];
 
     public function siswa()
@@ -36,5 +43,10 @@ class Pembayaran extends Model
             'e_wallet' => 'E-Wallet',
             default => '-',
         };
+    }
+
+    public function verifiedBy()
+    {
+        return $this->belongsTo(User::class, 'verified_by');
     }
 }

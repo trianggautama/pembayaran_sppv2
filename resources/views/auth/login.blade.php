@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login — SPP Sukamaju</title>
+    <title>Login — SPP SD IT Anak Soleh Mandiri</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex items-center justify-center">
@@ -15,8 +15,8 @@
     <div class="w-14 h-14 rounded-2xl bg-navy flex items-center justify-center mx-auto mb-4">
       <svg viewBox="0 0 24 24" class="w-7 h-7 text-white" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5-10-5Z"/><path d="M6 12v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"/></svg>
     </div>
-    <h1 class="font-display font-bold text-2xl text-slate-900">SPP Sukamaju</h1>
-    <p class="text-sm text-slate-400 mt-1">SD Negeri 01 — Sistem Pembayaran SPP</p>
+    <h1 class="font-display font-bold text-2xl text-slate-900">SPP SD IT Anak Soleh Mandiri</h1>
+    <p class="text-sm text-slate-400 mt-1">SD IT Anak Soleh Mandiri — Sistem Pembayaran SPP</p>
   </div>
 
   <!-- LOGIN CARD -->
@@ -75,7 +75,7 @@
     </form>
   </div>
 
-  <p class="text-center text-xs text-slate-400 mt-6">&copy; {{ date('Y') }} SPP Sukamaju — SD Negeri 01</p>
+  <p class="text-center text-xs text-slate-400 mt-6">&copy; {{ date('Y') }} SPP SD IT Anak Soleh Mandiri</p>
 </div>
 
 </body>

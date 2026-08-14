@@ -53,9 +53,9 @@
                         @if($pembayaran->status === 'pending')
                             <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-amber-100 text-amber-700">Pending</span>
                         @elseif($pembayaran->status === 'diverifikasi')
-                            <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-emerald-100 text-emerald-700">Terverifikasi</span>
+                            <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-emerald-100 text-emerald-700">Pembayaran Diterima</span>
                         @else
-                            <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-rose-100 text-rose-700">Ditolak</span>
+                            <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-rose-100 text-rose-700">Pembayaran Ditolak</span>
                         @endif
                         
                         <div class="mt-2">

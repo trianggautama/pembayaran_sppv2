@@ -166,7 +166,7 @@
                     <div class="space-y-1">
                         <p>Bank: <span class="font-medium">BRI</span></p>
                         <p>No. Rekening: <span class="font-medium">1234-5678-9012-3456</span></p>
-                        <p>Atas Nama: <span class="font-medium">SDN 01 Sukamaju</span></p>
+                        <p>Atas Nama: <span class="font-medium">SD IT Anak Soleh Mandiri</span></p>
                     </div>
                 </div>
                 <div x-show="selectedMethod === 'qris'" x-cloak class="flex flex-col items-center gap-3 py-4">
@@ -271,9 +271,9 @@
                         @if($pembayaran->status === 'pending')
                             <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-amber-100 text-amber-700">Pending</span>
                         @elseif($pembayaran->status === 'diverifikasi')
-                            <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-emerald-100 text-emerald-700">Terverifikasi</span>
+                            <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-emerald-100 text-emerald-700">Pembayaran Diterima</span>
                         @else
-                            <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-rose-100 text-rose-700">Ditolak</span>
+                            <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-rose-100 text-rose-700">Pembayaran Ditolak</span>
                         @endif
                         
                         <div class="mt-2">

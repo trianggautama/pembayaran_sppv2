@@ -15,9 +15,9 @@
             @if($pembayaran->status == 'pending')
                 <span class="px-3 py-1 bg-amber-100 text-amber-700 text-sm font-medium rounded-full">Pending</span>
             @elseif($pembayaran->status == 'diverifikasi')
-                <span class="px-3 py-1 bg-emerald-100 text-emerald-700 text-sm font-medium rounded-full">Diverifikasi</span>
+                <span class="px-3 py-1 bg-emerald-100 text-emerald-700 text-sm font-medium rounded-full">Pembayaran Diterima</span>
             @else
-                <span class="px-3 py-1 bg-rose-100 text-rose-700 text-sm font-medium rounded-full">Ditolak</span>
+                <span class="px-3 py-1 bg-rose-100 text-rose-700 text-sm font-medium rounded-full">Pembayaran Ditolak</span>
             @endif
         </div>
 

@@ -109,7 +109,7 @@
                         <div x-show="selectedMethod === 'transfer_bank'" style="display: none;" class="bg-blue-50 text-blue-800 p-4 rounded-xl text-sm whitespace-pre-line border border-blue-100">
                             Bank: BRI
                             No. Rekening: 1234-5678-9012-3456
-                            Atas Nama: SDN 01 Sukamaju
+                            Atas Nama: SD IT Anak Soleh Mandiri
                         </div>
                         <div x-show="selectedMethod === 'qris'" style="display: none;" class="flex justify-center mt-4">
                             <div class="w-[200px] h-[200px] bg-slate-100 rounded-xl border-2 border-dashed border-slate-300 flex items-center justify-center text-slate-400 font-medium">

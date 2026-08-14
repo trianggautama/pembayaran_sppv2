@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'SPP Sukamaju') — SPP Sukamaju | Admin</title>
+    <title>@yield('title', 'SPP SD IT Anak Soleh Mandiri') — Pembayaran SPP  | Admin</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased">
@@ -20,8 +20,8 @@
         <svg viewBox="0 0 24 24" class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5-10-5Z"/><path d="M6 12v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"/></svg>
       </div>
       <div class="leading-tight flex-1">
-        <p class="font-display font-bold text-sm tracking-wide">SPP Sukamaju</p>
-        <p class="text-[11px] text-sky">SD Negeri 01</p>
+        <p class="font-display font-bold text-sm tracking-wide">SPP SD IT Anak Soleh Mandiri</p>
+        <p class="text-[11px] text-sky">SD IT Anak Soleh Mandiri</p>
       </div>
       <!-- Close button (mobile) -->
       <button onclick="toggleSidebar()" class="lg:hidden w-8 h-8 rounded-lg flex items-center justify-center hover:bg-white/10 transition">
@@ -111,12 +111,17 @@
           <svg viewBox="0 0 24 24" class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6"/><path d="M9 13h6M9 17h6"/></svg>
           Tagihan SPP
         </a>
-        <a href="#" class="relative flex items-center justify-between gap-3 px-3 py-2.5 rounded-xl text-sky/90 hover:bg-white/10 hover:text-white transition">
+        @php
+            $isVerifikasiActive = Str::startsWith(request()->route()->getName(), 'bendahara.verifikasi.');
+        @endphp
+        <a href="{{ route('bendahara.verifikasi.index') }}" class="relative flex items-center justify-between gap-3 px-3 py-2.5 rounded-xl transition {{ $isVerifikasiActive ? 'bg-white/10 text-white font-medium' : 'text-sky/90 hover:bg-white/10 hover:text-white' }}">
           <span class="flex items-center gap-3">
             <svg viewBox="0 0 24 24" class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 12 2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
             Verifikasi Pembayaran
           </span>
-          <span class="text-[11px] font-semibold bg-primary text-white rounded-full px-1.5 py-0.5 min-w-[18px] text-center">12</span>
+          @if(isset($pendingPembayaranCount) && $pendingPembayaranCount > 0)
+          <span class="text-[11px] font-semibold bg-primary text-white rounded-full px-1.5 py-0.5 min-w-[18px] text-center">{{ $pendingPembayaranCount }}</span>
+          @endif
         </a>
         <a href="#" class="relative flex items-center gap-3 px-3 py-2.5 rounded-xl text-sky/90 hover:bg-white/10 hover:text-white transition">
           <svg viewBox="0 0 24 24" class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18 17V9M13 17V5M8 17v-3"/></svg>

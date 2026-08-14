@@ -13,6 +13,7 @@ use App\Http\Controllers\Bendahara\TagihanController;
 use App\Http\Controllers\Bendahara\SiswaController as BendaharaSiswaController;
 use App\Http\Controllers\WaliSiswa\TagihanController as WaliSiswaTagihanController;
 use App\Http\Controllers\WaliSiswa\PembayaranController as WaliSiswaPembayaranController;
+use App\Http\Controllers\Bendahara\VerifikasiController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', fn () => redirect('/login'));
@@ -48,6 +49,11 @@ Route::middleware('auth')->group(function () {
         Route::post('tagihan/generate', [TagihanController::class, 'generate'])->name('tagihan.generate');
         Route::get('tagihan/{tagihan}', [TagihanController::class, 'show'])->name('tagihan.show');
         Route::delete('tagihan/{tagihan}', [TagihanController::class, 'destroy'])->name('tagihan.destroy');
+
+        Route::get('verifikasi', [VerifikasiController::class, 'index'])->name('verifikasi.index');
+        Route::get('verifikasi/{pembayaran}', [VerifikasiController::class, 'show'])->name('verifikasi.show');
+        Route::post('verifikasi/{pembayaran}/terima', [VerifikasiController::class, 'terima'])->name('verifikasi.terima');
+        Route::post('verifikasi/{pembayaran}/tolak', [VerifikasiController::class, 'tolak'])->name('verifikasi.tolak');
     });
 
     Route::middleware('wali_siswa')->prefix('wali-siswa')->name('wali-siswa.')->group(function () {
