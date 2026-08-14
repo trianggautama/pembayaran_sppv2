@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\WaliSiswa;
 
 use App\Http\Controllers\Controller;
+use App\Models\Notifikasi;
 use App\Models\Pembayaran;
 use App\Models\Tagihan;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -53,7 +55,7 @@ class PembayaranController extends Controller
         $path = $request->file('bukti_pembayaran')->store('bukti-pembayaran', 'public');
         $dbPath = $path; // path sekarang 'bukti-pembayaran/filename.jpg' karena pakai disk 'public'
 
-        DB::transaction(function () use ($siswa, $totalBayar, $request, $dbPath, $tagihanIds) {
+        $pembayaran = DB::transaction(function () use ($siswa, $totalBayar, $request, $dbPath, $tagihanIds) {
             $pembayaran = Pembayaran::create([
                 'siswa_id' => $siswa->id,
                 'total_bayar' => $totalBayar,
@@ -66,7 +68,20 @@ class PembayaranController extends Controller
             $pembayaran->tagihan()->attach($tagihanIds);
 
             Tagihan::whereIn('id', $tagihanIds)->update(['status' => 'pending']);
+
+            return $pembayaran;
         });
+
+        $bendaharas = User::where('role', 'bendahara')->get();
+        foreach ($bendaharas as $bendahara) {
+            Notifikasi::create([
+                'user_id' => $bendahara->id,
+                'judul' => 'Pembayaran Masuk',
+                'pesan' => "Pembayaran dari {$siswa->nama} sebesar Rp " . number_format($totalBayar, 0, ',', '.') . " menunggu verifikasi.",
+                'tipe' => 'pembayaran_masuk',
+                'link' => route('bendahara.verifikasi.show', $pembayaran->id),
+            ]);
+        }
 
         return redirect()->route('wali-siswa.tagihan.index')->with('success', 'Pembayaran berhasil dikirim dan menunggu verifikasi.');
     }

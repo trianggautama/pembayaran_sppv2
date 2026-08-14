@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Bendahara;
 
 use App\Http\Controllers\Controller;
+use App\Models\Notifikasi;
 use App\Models\Pembayaran;
 use App\Models\Tagihan;
 use Illuminate\Http\Request;
@@ -57,6 +58,17 @@ class VerifikasiController extends Controller
             Tagihan::whereIn('id', $pembayaran->tagihan->pluck('id'))->update(['status' => 'sudah_bayar']);
         });
 
+        $waliUser = $pembayaran->siswa->user;
+        if ($waliUser) {
+            Notifikasi::create([
+                'user_id' => $waliUser->id,
+                'judul' => 'Pembayaran Diterima',
+                'pesan' => "Pembayaran sebesar Rp " . number_format($pembayaran->total_bayar, 0, ',', '.') . " telah diterima.",
+                'tipe' => 'pembayaran_diterima',
+                'link' => route('wali-siswa.pembayaran.show', $pembayaran->id),
+            ]);
+        }
+
         return redirect()->route('bendahara.verifikasi.show', $pembayaran)
             ->with('success', 'Pembayaran berhasil diverifikasi.');
     }
@@ -102,6 +114,17 @@ class VerifikasiController extends Controller
             // Kembalikan status tagihan ke belum_bayar
             Tagihan::whereIn('id', $pembayaran->tagihan->pluck('id'))->update(['status' => 'belum_bayar']);
         });
+
+        $waliUser = $pembayaran->siswa->user;
+        if ($waliUser) {
+            Notifikasi::create([
+                'user_id' => $waliUser->id,
+                'judul' => 'Pembayaran Ditolak',
+                'pesan' => "Pembayaran sebesar Rp " . number_format($pembayaran->total_bayar, 0, ',', '.') . " ditolak. Alasan: {$request->alasan_ditolak}",
+                'tipe' => 'pembayaran_ditolak',
+                'link' => route('wali-siswa.pembayaran.show', $pembayaran->id),
+            ]);
+        }
 
         return redirect()->route('bendahara.verifikasi.show', $pembayaran)
             ->with('success', 'Pembayaran telah ditolak.');

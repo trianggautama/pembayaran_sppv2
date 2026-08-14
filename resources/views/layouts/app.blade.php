@@ -177,10 +177,76 @@
           <svg viewBox="0 0 24 24" class="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
           <input type="text" placeholder="Cari nama siswa..." class="pl-10 pr-4 py-2.5 w-64 rounded-full bg-pale text-sm placeholder:text-slate-400 border border-transparent focus:outline-none focus:border-primary focus:bg-white transition">
         </label>
-        <button class="relative w-10 h-10 rounded-full bg-pale flex items-center justify-center hover:bg-sky/40 transition">
-          <svg viewBox="0 0 24 24" class="w-[18px] h-[18px] text-navy" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
-          <span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-rose-500 ring-2 ring-white"></span>
-        </button>
+        <div x-data="{ open: false }" class="relative">
+            <button @click="open = !open" class="relative w-10 h-10 rounded-full bg-pale flex items-center justify-center hover:bg-sky/40 transition">
+                <svg viewBox="0 0 24 24" class="w-[18px] h-[18px] text-navy" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                @if(isset($unreadNotifCount) && $unreadNotifCount > 0)
+                <span class="absolute top-1 right-1 min-w-[18px] h-[18px] rounded-full bg-rose-500 text-white text-[10px] font-bold flex items-center justify-center ring-2 ring-white px-1">{{ $unreadNotifCount > 99 ? '99+' : $unreadNotifCount }}</span>
+                @endif
+            </button>
+
+            <div x-show="open" @click.away="open = false" x-transition x-cloak
+                 class="absolute right-0 top-full mt-2 w-80 sm:w-96 bg-white rounded-2xl shadow-xl border border-slate-100 overflow-hidden z-50">
+                <div class="flex items-center justify-between px-4 py-3 border-b border-slate-100 bg-slate-50/50">
+                    <h3 class="font-semibold text-sm text-slate-800">Notifikasi</h3>
+                    <div class="flex items-center gap-2">
+                        @if(isset($unreadNotifCount) && $unreadNotifCount > 0)
+                        <form action="{{ route('notifikasi.baca-semua') }}" method="POST">
+                            @csrf
+                            <button type="submit" class="text-xs text-primary hover:text-navy font-medium">Tandai semua dibaca</button>
+                        </form>
+                        @endif
+                    </div>
+                </div>
+                <div class="max-h-80 overflow-y-auto divide-y divide-slate-100">
+                    @forelse($latestNotifikasis ?? [] as $notif)
+                    <form action="{{ route('notifikasi.baca', $notif) }}" method="POST">
+                        @csrf
+                        <button type="submit" class="w-full text-left px-4 py-3 hover:bg-slate-50 transition {{ $notif->read_at ? '' : 'bg-primary/5' }}">
+                            <div class="flex items-start gap-3">
+                                <div class="shrink-0 mt-0.5">
+                                    @if($notif->tipe === 'tagihan_baru')
+                                    <div class="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center">
+                                        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6"/></svg>
+                                    </div>
+                                    @elseif($notif->tipe === 'pembayaran_masuk')
+                                    <div class="w-8 h-8 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center">
+                                        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                                    </div>
+                                    @elseif($notif->tipe === 'pembayaran_diterima')
+                                    <div class="w-8 h-8 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center">
+                                        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 12 2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+                                    </div>
+                                    @else
+                                    <div class="w-8 h-8 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center">
+                                        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+                                    </div>
+                                    @endif
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <div class="flex items-center justify-between gap-2">
+                                        <p class="text-sm font-semibold text-slate-800 {{ $notif->read_at ? '' : 'text-navy' }}">{{ $notif->judul }}</p>
+                                        @if(!$notif->read_at)
+                                        <span class="w-2 h-2 rounded-full bg-primary shrink-0"></span>
+                                        @endif
+                                    </div>
+                                    <p class="text-xs text-slate-500 mt-0.5 line-clamp-2">{{ $notif->pesan }}</p>
+                                    <p class="text-[11px] text-slate-400 mt-1">{{ $notif->created_at->diffForHumans() }}</p>
+                                </div>
+                            </div>
+                        </button>
+                    </form>
+                    @empty
+                    <div class="px-4 py-8 text-center text-slate-400 text-sm">
+                        Belum ada notifikasi.
+                    </div>
+                    @endforelse
+                </div>
+                <a href="{{ route('notifikasi.index') }}" class="block text-center py-3 text-sm font-medium text-primary hover:text-navy hover:bg-slate-50 border-t border-slate-100 transition">
+                    Lihat Semua Notifikasi
+                </a>
+            </div>
+        </div>
         <div class="w-px h-8 bg-slate-200 hidden sm:block"></div>
         <div class="flex items-center gap-3">
           <div class="w-10 h-10 rounded-full bg-navy text-white flex items-center justify-center font-display font-semibold text-sm">

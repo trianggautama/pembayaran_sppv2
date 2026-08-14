@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Bendahara;
 
 use App\Http\Controllers\Controller;
+use App\Models\Notifikasi;
 use App\Models\Siswa;
 use App\Models\Tagihan;
 use App\Models\TahunAjaran;
@@ -51,9 +52,11 @@ class TagihanController extends Controller
             'nominal' => 'required|integer|min:1',
         ]);
 
-        $siswas = Siswa::all();
+        $siswas = Siswa::with('user')->get();
         $created = 0;
         $skipped = 0;
+        $bulanNama = [1=>'Januari',2=>'Februari',3=>'Maret',4=>'April',5=>'Mei',6=>'Juni',7=>'Juli',8=>'Agustus',9=>'September',10=>'Oktober',11=>'November',12=>'Desember'];
+        $namaBulan = $bulanNama[(int)$request->bulan] ?? '';
 
         foreach ($siswas as $siswa) {
             $tagihan = Tagihan::firstOrCreate(
@@ -70,6 +73,15 @@ class TagihanController extends Controller
 
             if ($tagihan->wasRecentlyCreated) {
                 $created++;
+                if ($siswa->user) {
+                    Notifikasi::create([
+                        'user_id' => $siswa->user->id,
+                        'judul' => 'Tagihan Baru',
+                        'pesan' => "Tagihan SPP bulan {$namaBulan} telah diterbitkan. Segera lakukan pembayaran.",
+                        'tipe' => 'tagihan_baru',
+                        'link' => route('wali-siswa.tagihan.index'),
+                    ]);
+                }
             } else {
                 $skipped++;
             }

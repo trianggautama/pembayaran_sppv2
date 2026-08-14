@@ -23,8 +23,13 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         View::composer('layouts.app', function ($view) {
-            if (Auth::check() && Auth::user()->isBendahara()) {
-                $view->with('pendingPembayaranCount', Pembayaran::where('status', 'pending')->count());
+            if (Auth::check()) {
+                $user = Auth::user();
+                if ($user->isBendahara()) {
+                    $view->with('pendingPembayaranCount', Pembayaran::where('status', 'pending')->count());
+                }
+                $view->with('unreadNotifCount', \App\Models\Notifikasi::where('user_id', $user->id)->whereNull('read_at')->count());
+                $view->with('latestNotifikasis', \App\Models\Notifikasi::where('user_id', $user->id)->latest()->limit(5)->get());
             }
         });
     }
