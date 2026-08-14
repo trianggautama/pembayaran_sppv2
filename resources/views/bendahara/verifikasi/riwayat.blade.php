@@ -7,6 +7,14 @@
             <h2 class="text-2xl font-bold text-slate-800">Riwayat Pembayaran</h2>
             <p class="text-slate-500 mt-1">Data pembayaran yang sudah diverifikasi</p>
         </div>
+        <a href="{{ route('bendahara.verifikasi.rekap-pdf', request()->query()) }}" target="_blank" class="inline-flex items-center justify-center bg-slate-700 text-white font-semibold text-sm px-6 py-2.5 rounded-xl hover:bg-slate-800 transition whitespace-nowrap">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6 9V2h12v7"/>
+                <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
+                <rect width="12" height="8" x="6" y="14"/>
+            </svg>
+            Cetak Rekap
+        </a>
     </div>
 
     <div class="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
@@ -76,6 +84,18 @@
                             </td>
                             <td class="px-6 py-4 text-right">
                                 <div class="flex items-center justify-end gap-2">
+                                    @if($pembayaran->status === 'diverifikasi')
+                                        <a href="{{ route('bendahara.verifikasi.kwitansi', $pembayaran) }}" 
+                                           target="_blank"
+                                           class="p-2 text-slate-400 hover:text-emerald-600 hover:bg-emerald-50 rounded-lg transition"
+                                           title="Cetak Kwitansi">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                <path d="M6 9V2h12v7"/>
+                                                <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
+                                                <rect width="12" height="8" x="6" y="14"/>
+                                            </svg>
+                                        </a>
+                                    @endif
                                     <a href="{{ route('bendahara.verifikasi.show', $pembayaran) }}" 
                                        class="p-2 text-slate-400 hover:text-primary hover:bg-blue-50 rounded-lg transition"
                                        title="Lihat Detail">

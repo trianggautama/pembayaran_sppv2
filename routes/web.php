@@ -51,12 +51,15 @@ Route::middleware('auth')->group(function () {
 
         Route::get('tagihan', [TagihanController::class, 'index'])->name('tagihan.index');
         Route::get('tagihan/create', [TagihanController::class, 'create'])->name('tagihan.create');
+        Route::get('tagihan/cetak-pdf', [TagihanController::class, 'cetakPdf'])->name('tagihan.cetak-pdf');
         Route::post('tagihan/generate', [TagihanController::class, 'generate'])->name('tagihan.generate');
         Route::get('tagihan/{tagihan}', [TagihanController::class, 'show'])->name('tagihan.show');
         Route::delete('tagihan/{tagihan}', [TagihanController::class, 'destroy'])->name('tagihan.destroy');
 
         Route::get('verifikasi', [VerifikasiController::class, 'index'])->name('verifikasi.index');
         Route::get('verifikasi/riwayat', [VerifikasiController::class, 'riwayat'])->name('verifikasi.riwayat');
+        Route::get('verifikasi/rekap-pdf', [VerifikasiController::class, 'cetakRekapPdf'])->name('verifikasi.rekap-pdf');
+        Route::get('verifikasi/{pembayaran}/kwitansi', [VerifikasiController::class, 'kwitansi'])->name('verifikasi.kwitansi');
         Route::get('verifikasi/{pembayaran}', [VerifikasiController::class, 'show'])->name('verifikasi.show');
         Route::post('verifikasi/{pembayaran}/terima', [VerifikasiController::class, 'terima'])->name('verifikasi.terima');
         Route::post('verifikasi/{pembayaran}/tolak', [VerifikasiController::class, 'tolak'])->name('verifikasi.tolak');

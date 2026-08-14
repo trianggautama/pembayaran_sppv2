@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Notifikasi;
 use App\Models\Pembayaran;
 use App\Models\Tagihan;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -39,6 +40,18 @@ class VerifikasiController extends Controller
     {
         $pembayaran->load(['siswa.kelas', 'tagihan.tahunAjaran', 'verifiedBy']);
         return view('bendahara.verifikasi.show', compact('pembayaran'));
+    }
+
+    public function kwitansi(Pembayaran $pembayaran)
+    {
+        $pembayaran->load(['siswa.kelas', 'tagihan.tahunAjaran', 'verifiedBy']);
+
+        $pdf = Pdf::loadView('bendahara.verifikasi.kwitansi-pdf', compact('pembayaran'))
+            ->setPaper('a5', 'landscape');
+
+        $filename = 'kwitansi-' . ($pembayaran->siswa->nis ?? 'unknown') . '-' . $pembayaran->created_at->format('Ymd') . '.pdf';
+
+        return $pdf->stream($filename);
     }
 
     public function terima(Pembayaran $pembayaran)
@@ -91,6 +104,39 @@ class VerifikasiController extends Controller
         $pembayarans = $query->latest('verified_at')->paginate(10)->withQueryString();
 
         return view('bendahara.verifikasi.riwayat', compact('pembayarans', 'status'));
+    }
+
+    public function cetakRekapPdf(Request $request)
+    {
+        $query = Pembayaran::with(['siswa.kelas', 'tagihan.tahunAjaran', 'verifiedBy'])
+            ->whereIn('status', ['diverifikasi', 'ditolak']);
+
+        $status = $request->get('status', 'semua');
+        if ($status !== 'semua') {
+            $query->where('status', $status);
+        }
+
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->whereHas('siswa', fn ($q) => $q->where('nama', 'like', "%{$search}%")->orWhere('nis', 'like', "%{$search}%"));
+        }
+
+        $pembayarans = $query->latest('verified_at')->get();
+
+        $filterInfo = [];
+        if ($status !== 'semua') {
+            $filterInfo[] = 'Status: ' . ($status === 'diverifikasi' ? 'Pembayaran Diterima' : 'Pembayaran Ditolak');
+        }
+        if ($request->filled('search')) {
+            $filterInfo[] = 'Pencarian: ' . $request->search;
+        }
+
+        $pdf = Pdf::loadView('bendahara.verifikasi.rekap-pdf', compact('pembayarans', 'filterInfo'))
+            ->setPaper('a4', 'landscape');
+
+        $filename = 'rekap-pembayaran-' . now()->format('Y-m-d') . '.pdf';
+
+        return $pdf->stream($filename);
     }
 
     public function tolak(Request $request, Pembayaran $pembayaran)
