@@ -83,6 +83,39 @@
         </a>
       </div>
 
+      <!-- Informasi Tunggakan Bulan -->
+      <div class="bg-white rounded-2xl p-5 border border-slate-100 shadow-sm shadow-slate-100">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="font-display font-bold text-slate-900 text-sm">Informasi Tunggakan (Tahun Ajaran Berjalan)</h3>
+        </div>
+        <div class="space-y-3">
+          <div class="flex items-center justify-between p-3 rounded-xl border border-rose-100 bg-rose-50/50">
+            <div class="flex items-center gap-3">
+              <div class="w-8 h-8 rounded-lg bg-rose-100 text-rose-600 flex items-center justify-center shrink-0">
+                <svg viewBox="0 0 24 24" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              </div>
+              <div>
+                <p class="text-sm font-semibold text-slate-800">Juli 2026</p>
+                <p class="text-xs text-rose-500 font-medium">Belum dibayar</p>
+              </div>
+            </div>
+            <span class="text-sm font-bold text-slate-800">Rp 250.000</span>
+          </div>
+          <div class="flex items-center justify-between p-3 rounded-xl border border-rose-100 bg-rose-50/50">
+            <div class="flex items-center gap-3">
+              <div class="w-8 h-8 rounded-lg bg-rose-100 text-rose-600 flex items-center justify-center shrink-0">
+                <svg viewBox="0 0 24 24" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              </div>
+              <div>
+                <p class="text-sm font-semibold text-slate-800">Agustus 2026</p>
+                <p class="text-xs text-rose-500 font-medium">Belum dibayar</p>
+              </div>
+            </div>
+            <span class="text-sm font-bold text-slate-800">Rp 250.000</span>
+          </div>
+        </div>
+      </div>
+
     </div>
 
     <!-- Right Column: Side panel -->
