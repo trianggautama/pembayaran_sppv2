@@ -74,6 +74,22 @@
           Tahun Ajaran
         </a>
 
+        <p class="px-3 pt-6 pb-2 text-[11px] font-semibold text-sky/70 uppercase tracking-wider">Data Keuangan</p>
+        <a href="{{ route('admin.tagihan.index') }}" class="relative flex items-center gap-3 px-3 py-2.5 rounded-xl {{ Str::startsWith($currentRoute, 'admin.tagihan') ? 'bg-white/10 font-medium' : 'text-sky/90 hover:bg-white/10 hover:text-white transition' }}">
+          @if(Str::startsWith($currentRoute, 'admin.tagihan'))
+            <span class="absolute left-0 top-1.5 bottom-1.5 w-1 rounded-full bg-primary"></span>
+          @endif
+          <svg viewBox="0 0 24 24" class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6"/><path d="M9 13h6M9 17h6"/></svg>
+          Data Tagihan
+        </a>
+        <a href="{{ route('admin.pembayaran.index') }}" class="relative flex items-center gap-3 px-3 py-2.5 rounded-xl {{ Str::startsWith($currentRoute, 'admin.pembayaran') ? 'bg-white/10 font-medium' : 'text-sky/90 hover:bg-white/10 hover:text-white transition' }}">
+          @if(Str::startsWith($currentRoute, 'admin.pembayaran'))
+            <span class="absolute left-0 top-1.5 bottom-1.5 w-1 rounded-full bg-primary"></span>
+          @endif
+          <svg viewBox="0 0 24 24" class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          Data Pembayaran
+        </a>
+
         <p class="px-3 pt-6 pb-2 text-[11px] font-semibold text-sky/70 uppercase tracking-wider">Manajemen User</p>
         <a href="{{ route('admin.profil.index') }}" class="relative flex items-center gap-3 px-3 py-2.5 rounded-xl {{ Str::startsWith($currentRoute, 'admin.profil') ? 'bg-white/10 font-medium' : 'text-sky/90 hover:bg-white/10 hover:text-white transition' }}">
           @if(Str::startsWith($currentRoute, 'admin.profil'))

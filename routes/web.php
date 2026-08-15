@@ -9,6 +9,8 @@ use App\Http\Controllers\Admin\TahunAjaranController;
 use App\Http\Controllers\Admin\ProfilController;
 use App\Http\Controllers\Admin\BendaharaController;
 use App\Http\Controllers\Admin\WaliSiswaController;
+use App\Http\Controllers\Admin\TagihanController as AdminTagihanController;
+use App\Http\Controllers\Admin\PembayaranController as AdminPembayaranController;
 use App\Http\Controllers\Bendahara\TagihanController;
 use App\Http\Controllers\Bendahara\SiswaController as BendaharaSiswaController;
 use App\Http\Controllers\WaliSiswa\TagihanController as WaliSiswaTagihanController;
@@ -43,6 +45,12 @@ Route::middleware('auth')->group(function () {
         Route::resource('kelas', KelasController::class);
         Route::resource('users', UserController::class);
         Route::resource('tahun-ajaran', TahunAjaranController::class);
+
+        Route::get('tagihan', [AdminTagihanController::class, 'index'])->name('tagihan.index');
+        Route::get('tagihan/cetak-pdf', [AdminTagihanController::class, 'cetakPdf'])->name('tagihan.cetak-pdf');
+
+        Route::get('pembayaran', [AdminPembayaranController::class, 'index'])->name('pembayaran.index');
+        Route::get('pembayaran/cetak-pdf', [AdminPembayaranController::class, 'cetakRekapPdf'])->name('pembayaran.cetak-pdf');
     });
 
     Route::middleware('bendahara')->prefix('bendahara')->name('bendahara.')->group(function () {
@@ -70,6 +78,7 @@ Route::middleware('auth')->group(function () {
         Route::get('pembayaran/create', [WaliSiswaPembayaranController::class, 'create'])->name('pembayaran.create');
         Route::post('pembayaran', [WaliSiswaPembayaranController::class, 'store'])->name('pembayaran.store');
         Route::get('pembayaran/{pembayaran}', [WaliSiswaPembayaranController::class, 'show'])->name('pembayaran.show');
+        Route::get('pembayaran/{pembayaran}/kwitansi', [WaliSiswaPembayaranController::class, 'kwitansi'])->name('pembayaran.kwitansi');
         Route::get('riwayat', [WaliSiswaTagihanController::class, 'riwayat'])->name('tagihan.riwayat');
     });
 });

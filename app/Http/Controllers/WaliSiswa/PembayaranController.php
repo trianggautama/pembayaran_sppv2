@@ -7,6 +7,7 @@ use App\Models\Notifikasi;
 use App\Models\Pembayaran;
 use App\Models\Tagihan;
 use App\Models\User;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -95,5 +96,25 @@ class PembayaranController extends Controller
         $pembayaran->load('tagihan.tahunAjaran');
 
         return view('wali-siswa.pembayaran.show', compact('pembayaran'));
+    }
+
+    public function kwitansi(Pembayaran $pembayaran)
+    {
+        if ($pembayaran->siswa_id !== Auth::user()->siswa->id) {
+            abort(403);
+        }
+
+        if ($pembayaran->status !== 'diverifikasi') {
+            abort(403, 'Kwitansi hanya tersedia untuk pembayaran yang sudah diverifikasi.');
+        }
+
+        $pembayaran->load(['siswa.kelas', 'tagihan.tahunAjaran', 'verifiedBy']);
+
+        $pdf = Pdf::loadView('bendahara.verifikasi.kwitansi-pdf', compact('pembayaran'))
+            ->setPaper('a5', 'landscape');
+
+        $filename = 'kwitansi-' . ($pembayaran->siswa->nis ?? 'unknown') . '-' . $pembayaran->created_at->format('Ymd') . '.pdf';
+
+        return $pdf->stream($filename);
     }
 }
