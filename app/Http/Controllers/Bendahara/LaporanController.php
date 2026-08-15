@@ -57,7 +57,7 @@ class LaporanController extends Controller
         if ($request->has('cetak')) {
             $kelas = Kelas::with(['siswas.pembayaran' => function ($q) {
                 $q->where('status', 'diverifikasi');
-            }, 'siswas.pembayaran.tagihan'])->findOrFail($request->kelas_id);
+            }, 'siswas.pembayaran.tagihan.tahunAjaran'])->findOrFail($request->kelas_id);
             
             $pdf = Pdf::loadView('bendahara.laporan.kelas-pdf', compact('kelas', 'request'));
             return $pdf->stream('laporan-pembayaran-kelas.pdf');

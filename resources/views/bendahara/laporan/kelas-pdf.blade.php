@@ -22,6 +22,7 @@
                 <th>No</th>
                 <th>NIS</th>
                 <th>Nama Siswa</th>
+                <th>Bulan Dibayar</th>
                 <th>Total Pembayaran Berhasil</th>
             </tr>
         </thead>
@@ -31,22 +32,40 @@
                 @php 
                     $totalSiswa = $siswa->pembayaran->sum('total_bayar'); 
                     $grandTotal += $totalSiswa;
+
+                    $bulanDibayar = [];
+                    foreach($siswa->pembayaran as $bayar) {
+                        foreach($bayar->tagihan as $tagihan) {
+                            $bulanDibayar[] = $tagihan->namaBulan() . ' ' . ($tagihan->tahunAjaran->nama ?? '');
+                        }
+                    }
                 @endphp
                 <tr>
                     <td>{{ $i + 1 }}</td>
                     <td>{{ $siswa->nis }}</td>
                     <td>{{ $siswa->nama }}</td>
+                    <td>
+                        @if(count($bulanDibayar) > 0)
+                            <ul style="margin: 0; padding-left: 15px;">
+                                @foreach($bulanDibayar as $bulan)
+                                    <li>{{ $bulan }}</li>
+                                @endforeach
+                            </ul>
+                        @else
+                            -
+                        @endif
+                    </td>
                     <td class="text-right">Rp {{ number_format($totalSiswa, 0, ',', '.') }}</td>
                 </tr>
             @empty
                 <tr>
-                    <td colspan="4" class="text-center">Tidak ada data siswa.</td>
+                    <td colspan="5" class="text-center">Tidak ada data siswa.</td>
                 </tr>
             @endforelse
         </tbody>
         <tfoot>
             <tr>
-                <th colspan="3" class="text-right">Grand Total Kelas</th>
+                <th colspan="4" class="text-right">Grand Total Kelas</th>
                 <th class="text-right">Rp {{ number_format($grandTotal, 0, ',', '.') }}</th>
             </tr>
         </tfoot>
