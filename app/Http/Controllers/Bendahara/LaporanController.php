@@ -33,16 +33,18 @@ class LaporanController extends Controller
     public function tunggakan(Request $request)
     {
         if ($request->has('cetak')) {
-            $query = Tagihan::with(['siswa.kelas', 'tahunAjaran'])->where('status', 'belum_dibayar');
+            $query = Kelas::with(['siswas' => function($q) {
+                $q->with(['tagihans' => function($qt) {
+                    $qt->where('status', 'belum_bayar')->with('tahunAjaran');
+                }]);
+            }]);
             
             if ($request->kelas_id) {
-                $query->whereHas('siswa', function ($q) use ($request) {
-                    $q->where('kelas_id', $request->kelas_id);
-                });
+                $query->where('id', $request->kelas_id);
             }
             
-            $tunggakans = $query->orderBy('siswa_id')->orderBy('bulan')->get();
-            $pdf = Pdf::loadView('bendahara.laporan.tunggakan-pdf', compact('tunggakans', 'request'));
+            $kelassData = $query->get();
+            $pdf = Pdf::loadView('bendahara.laporan.tunggakan-pdf', compact('kelassData', 'request'));
             return $pdf->stream('laporan-tunggakan.pdf');
         }
 
@@ -53,9 +55,9 @@ class LaporanController extends Controller
     public function kelas(Request $request)
     {
         if ($request->has('cetak')) {
-            $kelas = Kelas::with(['siswa.pembayaran' => function ($q) {
+            $kelas = Kelas::with(['siswas.pembayaran' => function ($q) {
                 $q->where('status', 'diverifikasi');
-            }, 'siswa.pembayaran.tagihan'])->findOrFail($request->kelas_id);
+            }, 'siswas.pembayaran.tagihan'])->findOrFail($request->kelas_id);
             
             $pdf = Pdf::loadView('bendahara.laporan.kelas-pdf', compact('kelas', 'request'));
             return $pdf->stream('laporan-pembayaran-kelas.pdf');

@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title>Rekap Pembayaran Kelas {{ $kelas->nama }}</title>
+    <title>Rekap Pembayaran Kelas {{ $kelas->nama_kelas }}</title>
     <style>
         body { font-family: sans-serif; font-size: 11px; }
         table { width: 100%; border-collapse: collapse; margin-top: 15px; }
@@ -13,7 +13,7 @@
     </style>
 </head>
 <body>
-    <h2 class="text-center">Rekap Pembayaran Kelas {{ $kelas->nama }}</h2>
+    <h2 class="text-center">Rekap Pembayaran Kelas {{ $kelas->nama_kelas }}</h2>
     <p class="text-center">Tanggal Cetak: {{ now()->format('d/m/Y') }}</p>
 
     <table>
@@ -27,7 +27,7 @@
         </thead>
         <tbody>
             @php $grandTotal = 0; @endphp
-            @forelse($kelas->siswa as $i => $siswa)
+            @forelse($kelas->siswas as $i => $siswa)
                 @php 
                     $totalSiswa = $siswa->pembayaran->sum('total_bayar'); 
                     $grandTotal += $totalSiswa;

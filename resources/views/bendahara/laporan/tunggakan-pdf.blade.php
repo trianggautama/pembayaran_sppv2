@@ -27,17 +27,24 @@
             </tr>
         </thead>
         <tbody>
-            @php $total = 0; @endphp
-            @forelse($tunggakans as $i => $tunggakan)
-                @php $total += $tunggakan->nominal; @endphp
-                <tr>
-                    <td>{{ $i + 1 }}</td>
-                    <td>{{ $tunggakan->siswa->nis ?? '-' }}</td>
-                    <td>{{ $tunggakan->siswa->nama ?? '-' }}</td>
-                    <td>{{ $tunggakan->siswa->kelas->nama ?? '-' }}</td>
-                    <td>{{ $tunggakan->namaBulan() }} ({{ $tunggakan->tahunAjaran->nama ?? '-' }})</td>
-                    <td class="text-right">Rp {{ number_format($tunggakan->nominal, 0, ',', '.') }}</td>
-                </tr>
+            @php 
+                $total = 0; 
+                $no = 1;
+            @endphp
+            @forelse($kelassData as $kelas)
+                @foreach($kelas->siswas as $siswa)
+                    @foreach($siswa->tagihans as $tunggakan)
+                        @php $total += $tunggakan->nominal; @endphp
+                        <tr>
+                            <td>{{ $no++ }}</td>
+                            <td>{{ $siswa->nis ?? '-' }}</td>
+                            <td>{{ $siswa->nama ?? '-' }}</td>
+                            <td>{{ $kelas->nama_kelas ?? '-' }}</td>
+                            <td>{{ $tunggakan->namaBulan() }} ({{ $tunggakan->tahunAjaran->nama ?? '-' }})</td>
+                            <td class="text-right">Rp {{ number_format($tunggakan->nominal, 0, ',', '.') }}</td>
+                        </tr>
+                    @endforeach
+                @endforeach
             @empty
                 <tr>
                     <td colspan="6" class="text-center">Tidak ada data tunggakan.</td>

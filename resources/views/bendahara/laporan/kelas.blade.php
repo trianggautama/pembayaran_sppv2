@@ -10,10 +10,10 @@
         
         <div>
             <label class="block text-sm font-medium text-slate-700 mb-2">Pilih Kelas</label>
-            <select name="kelas_id" required class="w-full rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm">
+            <select name="kelas_id" required class="w-full rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm text-slate-800">
                 <option value="">-- Pilih Kelas --</option>
                 @foreach($kelass as $kelas)
-                    <option value="{{ $kelas->id }}">{{ $kelas->nama }}</option>
+                    <option value="{{ $kelas->id }}">{{ $kelas->nama_kelas }}</option>
                 @endforeach
             </select>
         </div>

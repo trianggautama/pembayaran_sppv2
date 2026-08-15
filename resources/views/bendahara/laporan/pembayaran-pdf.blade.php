@@ -41,7 +41,7 @@
                     <td>{{ $i + 1 }}</td>
                     <td>{{ $bayar->created_at->format('d/m/Y') }}</td>
                     <td>{{ $bayar->siswa->nama ?? '-' }}</td>
-                    <td>{{ $bayar->siswa->kelas->nama ?? '-' }}</td>
+                    <td>{{ $bayar->siswa->kelas->nama_kelas ?? '-' }}</td>
                     <td class="text-right">Rp {{ number_format($bayar->total_bayar, 0, ',', '.') }}</td>
                     <td>{{ $bayar->metode_pembayaran === 'transfer' ? 'Transfer' : 'Tunai' }}</td>
                 </tr>
