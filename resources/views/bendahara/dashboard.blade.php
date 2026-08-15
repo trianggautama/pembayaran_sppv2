@@ -59,18 +59,18 @@
       <svg viewBox="0 0 24 24" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
       Generate Tagihan Baru
     </a>
-    <a href="#" class="flex items-center gap-2 bg-white text-slate-700 border border-slate-200 px-4 py-2.5 rounded-xl font-semibold text-sm hover:bg-slate-50 hover:border-slate-300 transition">
+    <a href="{{ route('bendahara.verifikasi.index') }}" class="flex items-center gap-2 bg-white text-slate-700 border border-slate-200 px-4 py-2.5 rounded-xl font-semibold text-sm hover:bg-slate-50 hover:border-slate-300 transition">
       <svg viewBox="0 0 24 24" class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
       Verifikasi Pembayaran
     </a>
   </section>
 
   <section class="mb-8">
-    <div class="flex items-center justify-between mb-4">
+    {{-- <div class="flex items-center justify-between mb-4">
       <h2 class="font-display font-bold text-slate-800 text-lg">Menunggu Verifikasi Terbaru</h2>
       <a href="#" class="text-xs font-semibold text-primary hover:text-navy flex items-center gap-1">Lihat Semua <svg viewBox="0 0 24 24" class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></a>
-    </div>
-
+    </div> --}}
+{{-- 
     <div class="bg-white border border-slate-100 rounded-2xl overflow-hidden shadow-sm shadow-slate-100">
       <div class="overflow-x-auto">
       <table class="w-full text-left text-sm whitespace-nowrap">
@@ -132,7 +132,7 @@
         </tbody>
       </table>
       </div>
-    </div>
+    </div> --}}
   </section>
 
 @endsection

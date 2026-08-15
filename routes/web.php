@@ -71,6 +71,12 @@ Route::middleware('auth')->group(function () {
         Route::get('verifikasi/{pembayaran}', [VerifikasiController::class, 'show'])->name('verifikasi.show');
         Route::post('verifikasi/{pembayaran}/terima', [VerifikasiController::class, 'terima'])->name('verifikasi.terima');
         Route::post('verifikasi/{pembayaran}/tolak', [VerifikasiController::class, 'tolak'])->name('verifikasi.tolak');
+
+        Route::prefix('laporan')->name('laporan.')->group(function () {
+            Route::get('pembayaran', [App\Http\Controllers\Bendahara\LaporanController::class, 'pembayaran'])->name('pembayaran');
+            Route::get('tunggakan', [App\Http\Controllers\Bendahara\LaporanController::class, 'tunggakan'])->name('tunggakan');
+            Route::get('kelas', [App\Http\Controllers\Bendahara\LaporanController::class, 'kelas'])->name('kelas');
+        });
     });
 
     Route::middleware('wali_siswa')->prefix('wali-siswa')->name('wali-siswa.')->group(function () {

@@ -20,11 +20,38 @@ class WaliSiswaController extends Controller
 
     public function create()
     {
-        return view('admin.wali-siswa.create');
+        $siswas = \App\Models\Siswa::with('kelas')->get();
+        return view('admin.wali-siswa.create', compact('siswas'));
     }
 
     public function store(Request $request)
     {
+        $request->validate([
+            'nama_wali' => 'required|string|max:255',
+            'telepon_wali' => 'required|string|max:20',
+            'siswa_id' => 'required|exists:siswas,id',
+            'username' => 'required|string|max:255|unique:users',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:8|confirmed',
+        ]);
+
+        \Illuminate\Support\Facades\DB::transaction(function () use ($request) {
+            $user = \App\Models\User::create([
+                'name' => $request->nama_wali,
+                'username' => $request->username,
+                'email' => $request->email,
+                'password' => bcrypt($request->password),
+                'role' => 'wali_siswa',
+            ]);
+
+            $siswa = \App\Models\Siswa::findOrFail($request->siswa_id);
+            $siswa->update([
+                'nama_wali' => $request->nama_wali,
+                'telepon_wali' => $request->telepon_wali,
+                'user_id' => $user->id,
+            ]);
+        });
+
         return redirect()->route('admin.wali-siswa.index')->with('success', 'Wali Siswa berhasil ditambahkan.');
     }
 

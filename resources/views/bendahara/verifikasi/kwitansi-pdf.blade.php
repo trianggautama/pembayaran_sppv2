@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <title>Kwitansi Pembayaran</title>
     <style>
+        @page {
+            margin: 30px;
+        }
         * {
             margin: 0;
             padding: 0;
@@ -11,24 +14,23 @@
         }
         body {
             font-family: 'Helvetica', 'Arial', sans-serif;
-            font-size: 11px;
+            font-size: 9px;
             color: #1e293b;
-            line-height: 1.5;
-            padding: 20px;
+            line-height: 1.3;
         }
 
         .kwitansi {
             border: 2px solid #0f172a;
-            padding: 24px;
+            padding: 15px;
             position: relative;
         }
         .kwitansi::before {
             content: '';
             position: absolute;
-            top: 3px;
-            left: 3px;
-            right: 3px;
-            bottom: 3px;
+            top: 2px;
+            left: 2px;
+            right: 2px;
+            bottom: 2px;
             border: 1px solid #cbd5e1;
         }
 
@@ -36,34 +38,34 @@
         .header {
             text-align: center;
             border-bottom: 3px double #334155;
-            padding-bottom: 14px;
-            margin-bottom: 18px;
+            padding-bottom: 8px;
+            margin-bottom: 10px;
             position: relative;
             z-index: 1;
         }
         .header h1 {
-            font-size: 20px;
+            font-size: 16px;
             font-weight: bold;
             text-transform: uppercase;
-            letter-spacing: 3px;
+            letter-spacing: 2px;
             color: #0f172a;
         }
         .header h2 {
-            font-size: 13px;
+            font-size: 11px;
             font-weight: 600;
             color: #334155;
             margin-top: 2px;
         }
         .nomor {
-            font-size: 10px;
+            font-size: 9px;
             color: #64748b;
-            margin-top: 6px;
+            margin-top: 4px;
         }
 
         /* Info grid */
         .info-grid {
             width: 100%;
-            margin-bottom: 16px;
+            margin-bottom: 10px;
             position: relative;
             z-index: 1;
         }
@@ -90,7 +92,7 @@
         .tagihan-table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 16px;
+            margin-bottom: 10px;
             position: relative;
             z-index: 1;
         }
@@ -98,24 +100,24 @@
             background: #0f172a;
             color: #ffffff;
             font-weight: 600;
-            padding: 7px 10px;
+            padding: 5px 8px;
             text-align: left;
-            font-size: 10px;
+            font-size: 9px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
         .tagihan-table tbody td {
-            padding: 6px 10px;
+            padding: 4px 8px;
             border-bottom: 1px solid #e2e8f0;
-            font-size: 11px;
+            font-size: 9px;
         }
         .tagihan-table tbody tr:nth-child(even) {
             background: #f8fafc;
         }
         .tagihan-table tfoot td {
-            padding: 8px 10px;
+            padding: 6px 8px;
             font-weight: 700;
-            font-size: 12px;
+            font-size: 10px;
             border-top: 2px solid #334155;
             color: #0f172a;
         }
@@ -130,12 +132,12 @@
         .terbilang {
             background: #f1f5f9;
             border: 1px solid #e2e8f0;
-            padding: 8px 12px;
+            padding: 6px 8px;
             border-radius: 4px;
-            font-size: 10px;
+            font-size: 9px;
             font-style: italic;
             color: #334155;
-            margin-bottom: 18px;
+            margin-bottom: 12px;
             position: relative;
             z-index: 1;
         }
@@ -146,9 +148,9 @@
         /* Status */
         .status-badge {
             display: inline-block;
-            padding: 3px 12px;
+            padding: 2px 8px;
             border-radius: 12px;
-            font-size: 10px;
+            font-size: 9px;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.5px;
@@ -166,7 +168,7 @@
 
         /* Footer / TTD */
         .footer-ttd {
-            margin-top: 20px;
+            margin-top: 15px;
             position: relative;
             z-index: 1;
         }
@@ -183,20 +185,20 @@
         }
         .ttd-box .line {
             border-bottom: 1px solid #334155;
-            margin-top: 50px;
+            margin-top: 35px;
             margin-bottom: 4px;
         }
         .ttd-box .name {
             font-weight: 700;
             color: #0f172a;
-            font-size: 11px;
+            font-size: 10px;
         }
         .ttd-box .role {
-            font-size: 9px;
+            font-size: 8px;
             color: #64748b;
         }
         .print-date {
-            font-size: 9px;
+            font-size: 8px;
             color: #94a3b8;
             position: relative;
             z-index: 1;

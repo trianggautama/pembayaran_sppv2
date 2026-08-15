@@ -29,6 +29,16 @@
                 <input type="text" id="telepon_wali" name="telepon_wali" class="w-full rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition" required>
             </div>
 
+            <div>
+                <label for="siswa_id" class="block text-sm font-medium text-slate-700 mb-2">Pilih Siswa</label>
+                <select id="siswa_id" name="siswa_id" class="w-full rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm text-slate-800 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition" required>
+                    <option value="">-- Pilih Siswa --</option>
+                    @foreach($siswas as $siswa)
+                        <option value="{{ $siswa->id }}">{{ $siswa->nis }} - {{ $siswa->nama }} (Kelas: {{ $siswa->kelas->nama ?? '-' }})</option>
+                    @endforeach
+                </select>
+            </div>
+
             <hr class="border-slate-100 my-6">
 
             <div>

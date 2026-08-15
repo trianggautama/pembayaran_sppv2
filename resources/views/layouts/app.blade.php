@@ -57,13 +57,13 @@
           <svg viewBox="0 0 24 24" class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
           Kelola Data Kelas
         </a>
-        <a href="{{ route('admin.users.index') }}" class="relative flex items-center gap-3 px-3 py-2.5 rounded-xl {{ Str::startsWith($currentRoute, 'admin.users') ? 'bg-white/10 font-medium' : 'text-sky/90 hover:bg-white/10 hover:text-white transition' }}">
+        {{-- <a href="{{ route('admin.users.index') }}" class="relative flex items-center gap-3 px-3 py-2.5 rounded-xl {{ Str::startsWith($currentRoute, 'admin.users') ? 'bg-white/10 font-medium' : 'text-sky/90 hover:bg-white/10 hover:text-white transition' }}">
           @if(Str::startsWith($currentRoute, 'admin.users'))
             <span class="absolute left-0 top-1.5 bottom-1.5 w-1 rounded-full bg-primary"></span>
           @endif
           <svg viewBox="0 0 24 24" class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
           Kelola Akun User
-        </a>
+        </a> --}}
 
         <p class="px-3 pt-6 pb-2 text-[11px] font-semibold text-sky/70 uppercase tracking-wider">Pengaturan</p>
         <a href="{{ route('admin.tahun-ajaran.index') }}" class="relative flex items-center gap-3 px-3 py-2.5 rounded-xl {{ Str::startsWith($currentRoute, 'admin.tahun-ajaran') ? 'bg-white/10 font-medium' : 'text-sky/90 hover:bg-white/10 hover:text-white transition' }}">
@@ -90,7 +90,7 @@
           Data Pembayaran
         </a>
 
-        <p class="px-3 pt-6 pb-2 text-[11px] font-semibold text-sky/70 uppercase tracking-wider">Manajemen User</p>
+        <p class="px-3 pt-6 pb-2 text-[11px] font-semibold text-sky/70 uppercase tracking-wider">Kelola Data User</p>
         <a href="{{ route('admin.profil.index') }}" class="relative flex items-center gap-3 px-3 py-2.5 rounded-xl {{ Str::startsWith($currentRoute, 'admin.profil') ? 'bg-white/10 font-medium' : 'text-sky/90 hover:bg-white/10 hover:text-white transition' }}">
           @if(Str::startsWith($currentRoute, 'admin.profil'))
             <span class="absolute left-0 top-1.5 bottom-1.5 w-1 rounded-full bg-primary"></span>
@@ -146,6 +146,29 @@
           <svg viewBox="0 0 24 24" class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18 17V9M13 17V5M8 17v-3"/></svg>
           Riwayat Pembayaran
         </a>
+
+        <!-- Menu Laporan (Submenu) -->
+        <div x-data="{ open: {{ Str::startsWith($currentRoute, 'bendahara.laporan') ? 'true' : 'false' }} }" class="mt-2">
+          <button @click="open = !open" class="w-full relative flex items-center justify-between gap-3 px-3 py-2.5 rounded-xl {{ Str::startsWith($currentRoute, 'bendahara.laporan') ? 'bg-white/10 font-medium text-white' : 'text-sky/90 hover:bg-white/10 hover:text-white transition' }}">
+            <span class="flex items-center gap-3">
+              <svg viewBox="0 0 24 24" class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22h14a2 2 0 0 0 2-2V7.5L14.5 2H6a2 2 0 0 0-2 2v4"/><polyline points="14 2 14 8 20 8"/><path d="M2 15h10"/><path d="m9 18 3-3-3-3"/></svg>
+              Laporan
+            </span>
+            <svg viewBox="0 0 24 24" class="w-[16px] h-[16px] transition-transform duration-200" :class="open ? 'rotate-180' : ''" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          
+          <div x-show="open" x-transition.opacity class="pl-9 pr-3 py-2 space-y-1">
+            <a href="{{ route('bendahara.laporan.pembayaran') }}" class="block px-3 py-2 text-sm rounded-lg {{ $currentRoute === 'bendahara.laporan.pembayaran' ? 'bg-white/10 text-white font-medium' : 'text-sky/90 hover:bg-white/10 hover:text-white transition' }}">
+              Pembayaran
+            </a>
+            <a href="{{ route('bendahara.laporan.tunggakan') }}" class="block px-3 py-2 text-sm rounded-lg {{ $currentRoute === 'bendahara.laporan.tunggakan' ? 'bg-white/10 text-white font-medium' : 'text-sky/90 hover:bg-white/10 hover:text-white transition' }}">
+              Tunggakan
+            </a>
+            <a href="{{ route('bendahara.laporan.kelas') }}" class="block px-3 py-2 text-sm rounded-lg {{ $currentRoute === 'bendahara.laporan.kelas' ? 'bg-white/10 text-white font-medium' : 'text-sky/90 hover:bg-white/10 hover:text-white transition' }}">
+              Rekap per Kelas
+            </a>
+          </div>
+        </div>
       @elseif(Auth::user()->isWaliSiswa())
         <a href="{{ route('wali-siswa.tagihan.index') }}" class="relative flex items-center gap-3 px-3 py-2.5 rounded-xl {{ $currentRoute === 'wali-siswa.tagihan.index' ? 'bg-white/10 font-medium' : 'text-sky/90 hover:bg-white/10 hover:text-white transition' }}">
           @if($currentRoute === 'wali-siswa.tagihan.index')
