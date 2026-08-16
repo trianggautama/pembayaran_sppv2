@@ -124,15 +124,15 @@
         <div class="space-y-3">
           <div class="flex justify-between">
             <span class="text-xs text-slate-500">Kelas</span>
-            <span class="text-xs font-semibold text-slate-800">4A</span>
+            <span class="text-xs font-semibold text-slate-800">{{ auth()->user()->siswa->kelas->nama_kelas ?? '-' }}</span>
           </div>
           <div class="flex justify-between">
-            <span class="text-xs text-slate-500">Tahun Ajaran</span>
-            <span class="text-xs font-semibold text-slate-800">2026/2027</span>
+            <span class="text-xs text-slate-500">Nama Wali</span>
+            <span class="text-xs font-semibold text-slate-800">{{ auth()->user()->name }}</span>
           </div>
           <div class="flex justify-between">
-            <span class="text-xs text-slate-500">Tarif SPP</span>
-            <span class="text-xs font-semibold text-slate-800">Rp 250.000 / bulan</span>
+            <span class="text-xs text-slate-500">Nomor Telepon</span>
+            <span class="text-xs font-semibold text-slate-800">{{ auth()->user()->siswa->telepon_wali ?? '-' }}</span>
           </div>
         </div>
       </div>

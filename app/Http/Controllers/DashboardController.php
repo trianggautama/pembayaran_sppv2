@@ -88,6 +88,7 @@ class DashboardController extends Controller
                 ->count();
             $tagihanTerbayarkan = Tagihan::where('siswa_id', auth()->user()->siswa->id)
                 ->whereHas('tahunAjaran', fn($q) => $q->where('is_active', true))
+                ->where('status', 'sudah_bayar')
                 ->count();
             $tagihans = auth()->user()->siswa->tagihans()
             ->with('tahunAjaran')
