@@ -14,7 +14,7 @@ return new class extends Migration
             $table->foreignId('tahun_ajaran_id')->constrained('tahun_ajarans')->cascadeOnDelete();
             $table->tinyInteger('bulan'); // 1-12
             $table->integer('nominal');
-            $table->enum('status', ['belum_bayar', 'sudah_bayar'])->default('belum_bayar');
+            $table->enum('status', ['belum_bayar', 'sudah_bayar','pending'])->default('belum_bayar');
             $table->timestamps();
 
             $table->unique(['siswa_id', 'tahun_ajaran_id', 'bulan']);
