@@ -77,7 +77,7 @@
         <h3 class="font-display font-bold text-slate-900">Alur Pembayaran SPP</h3>
         <p class="text-xs text-slate-400 mt-0.5">Posisi tagihan bulan {{ $namaBulan }} di setiap tahapan proses</p>
       </div>
-      <a href="#" class="text-xs font-semibold text-primary hover:text-navy">Lihat semua tagihan &rarr;</a>
+      <a href="{{ route('admin.tagihan.index') }}" class="text-xs font-semibold text-primary hover:text-navy">Lihat semua tagihan &rarr;</a>
     </div>
 
     <div class="overflow-x-auto pb-2">
@@ -271,7 +271,6 @@
             <p class="text-sm text-slate-400 text-center py-3">Tidak ada pembayaran menunggu</p>
           @endforelse
         </div>
-        <button class="w-full mt-4 text-xs font-semibold text-primary border border-sky/60 rounded-xl py-2 hover:bg-pale transition">Lihat semua verifikasi</button>
       </div>
 
       <div class="bg-navy rounded-2xl p-5 text-white">
