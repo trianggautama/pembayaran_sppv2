@@ -13,11 +13,6 @@ class DashboardController extends Controller
     {
         $role = auth()->user()->role ?? 'admin';
 
-        if ($role === 'bendahara') {
-            return view('bendahara.dashboard');
-        } elseif ($role === 'wali_siswa') {
-            return view('wali-siswa.dashboard');
-        }
 
         $now = Carbon::now();
         $bulanIni = $now->month;
@@ -70,6 +65,23 @@ class DashboardController extends Controller
 
         $namaBulan = $now->translatedFormat('F');
 
+         if ($role === 'bendahara') {
+            return view('bendahara.dashboard',compact(
+                'totalSiswa',
+                'siswaBaruBulanIni',
+                'tagihanBulanIni',
+                'menungguVerifikasi',
+                'pembayaranLunas',
+                'totalNominalTagihan',
+                'tagihanLunasBulanIni',
+                'persenLunas',
+                'pembayaranTerbaru',
+                'pendingVerifikasi',
+                'namaBulan',
+            ));
+        } elseif ($role === 'wali_siswa') {
+            return view('wali-siswa.dashboard');
+        }
         return view('dashboard', compact(
             'totalSiswa',
             'siswaBaruBulanIni',
