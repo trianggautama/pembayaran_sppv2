@@ -12,10 +12,6 @@
       <p class="text-sky text-xs font-semibold uppercase tracking-wider mb-1">{{ now()->translatedFormat('l, d F Y') }}</p>
       <h2 class="font-display font-bold text-xl sm:text-2xl mb-1.5">Selamat datang, {{ Auth::user()->name }}</h2>
       <p class="text-sm text-sky/90 max-w-md">Ada <span class="font-semibold text-white">{{ $menungguVerifikasi }} bukti pembayaran</span> yang menunggu diverifikasi oleh bendahara hari ini.</p>
-      <div class="flex flex-col sm:flex-row gap-3 mt-5">
-        <button class="bg-white text-navy text-sm font-semibold px-4 py-2.5 rounded-xl hover:bg-pale transition">+ Tambah Data Siswa</button>
-        <button class="bg-white/10 border border-white/30 text-white text-sm font-semibold px-4 py-2.5 rounded-xl hover:bg-white/20 transition">Buat Tagihan Baru</button>
-      </div>
     </div>
     <svg class="absolute -right-6 -bottom-10 w-56 h-56 text-white/10" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="12"/></svg>
     <svg class="absolute right-16 -top-8 w-28 h-28 text-white/10" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="12"/></svg>
