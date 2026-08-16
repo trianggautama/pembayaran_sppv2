@@ -56,7 +56,7 @@
         <div class="flex items-center gap-1.5 mt-2">
           <span class="text-[10px] font-semibold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded flex items-center gap-1">
             <svg viewBox="0 0 24 24" class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 7-7 7 7"/><path d="M12 19V5"/></svg>
-            Agustus 2026
+           Terbayarkan
           </span>
         </div>
       </div>
