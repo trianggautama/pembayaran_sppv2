@@ -193,7 +193,7 @@
           <h3 class="font-display font-bold text-slate-900">Aktivitas Pembayaran Terbaru</h3>
           <p class="text-xs text-slate-400 mt-0.5">Bukti pembayaran yang baru diunggah wali murid</p>
         </div>
-        <a href="#" class="text-xs font-semibold text-primary hover:text-navy">Lihat semua &rarr;</a>
+        <a href="{{ route('admin.pembayaran.index') }}" class="text-xs font-semibold text-primary hover:text-navy">Lihat semua &rarr;</a>
       </div>
       <div class="overflow-x-auto">
       <table class="w-full text-sm min-w-[640px]">
