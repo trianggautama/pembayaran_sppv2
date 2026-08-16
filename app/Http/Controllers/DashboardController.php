@@ -80,7 +80,23 @@ class DashboardController extends Controller
                 'namaBulan',
             ));
         } elseif ($role === 'wali_siswa') {
-            return view('wali-siswa.dashboard');
+            $totalNominalTagihan = Tagihan::where('siswa_id', auth()->user()->siswa->id)
+                ->whereHas('tahunAjaran', fn($q) => $q->where('is_active', true))
+                ->sum('nominal');
+            $menungguVerifikasi = Pembayaran::whereHas('tagihan', fn($q) => $q->where('siswa_id', auth()->user()->siswa->id))
+                ->where('status', 'pending')
+                ->count();
+            $tagihanTerbayarkan = Tagihan::where('siswa_id', auth()->user()->siswa->id)
+                ->whereHas('tahunAjaran', fn($q) => $q->where('is_active', true))
+                ->count();
+            $tagihans = auth()->user()->siswa->tagihans()
+            ->with('tahunAjaran')
+            ->orderByDesc('bulan')
+            ->get();
+
+            $totalTagihan = $tagihans->where('status', 'belum_bayar');
+
+            return view('wali-siswa.dashboard', compact('totalNominalTagihan', 'menungguVerifikasi','tagihanTerbayarkan','totalTagihan'));
         }
         return view('dashboard', compact(
             'totalSiswa',

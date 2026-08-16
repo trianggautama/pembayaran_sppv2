@@ -20,7 +20,7 @@
     <div class="bg-white rounded-2xl p-5 border border-slate-100 shadow-sm shadow-slate-100 flex items-center justify-between relative overflow-hidden group">
       <div>
         <p class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider mb-1">Total Tunggakan</p>
-        <p class="text-3xl font-display font-bold text-slate-800 tracking-tight">Rp 500<span class="text-xl text-slate-500 font-medium">Rb</span></p>
+        <p class="text-3xl font-display font-bold text-slate-800 tracking-tight">{{ number_format($totalNominalTagihan, 0, ',', '.') }}<span class="text-xl text-slate-500 font-medium"> Rb</span></p>
         <div class="flex items-center gap-1.5 mt-2">
           <span class="text-[10px] font-semibold text-rose-600 bg-rose-50 px-1.5 py-0.5 rounded flex items-center gap-1">
             <svg viewBox="0 0 24 24" class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
@@ -36,7 +36,7 @@
     <div class="bg-white rounded-2xl p-5 border border-slate-100 shadow-sm shadow-slate-100 flex items-center justify-between relative overflow-hidden group">
       <div>
         <p class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider mb-1">Menunggu Verifikasi</p>
-        <p class="text-3xl font-display font-bold text-slate-800">1</p>
+        <p class="text-3xl font-display font-bold text-slate-800">{{ $menungguVerifikasi}}<span class="text-xl text-slate-500 font-medium"> Pembayaran</span></p>
         <div class="flex items-center gap-1.5 mt-2">
           <span class="text-[10px] font-semibold text-amber-600 bg-amber-50 px-1.5 py-0.5 rounded flex items-center gap-1">
             <svg viewBox="0 0 24 24" class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
@@ -51,8 +51,8 @@
     
     <div class="bg-white rounded-2xl p-5 border border-slate-100 shadow-sm shadow-slate-100 flex items-center justify-between relative overflow-hidden group">
       <div>
-        <p class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider mb-1">Lunas Bulan Ini</p>
-        <p class="text-3xl font-display font-bold text-slate-800 tracking-tight">Rp 250<span class="text-xl text-slate-500 font-medium">Rb</span></p>
+        <p class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider mb-1">Bulan Terbayarakan</p>
+        <p class="text-3xl font-display font-bold text-slate-800 tracking-tight">{{$tagihanTerbayarkan}}<span class="text-xl text-slate-500 font-medium"> Bulan</span></p>
         <div class="flex items-center gap-1.5 mt-2">
           <span class="text-[10px] font-semibold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded flex items-center gap-1">
             <svg viewBox="0 0 24 24" class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 7-7 7 7"/><path d="M12 19V5"/></svg>
@@ -89,30 +89,20 @@
           <h3 class="font-display font-bold text-slate-900 text-sm">Informasi Tunggakan (Tahun Ajaran Berjalan)</h3>
         </div>
         <div class="space-y-3">
+          @foreach($totalTagihan as $tagihan)
           <div class="flex items-center justify-between p-3 rounded-xl border border-rose-100 bg-rose-50/50">
             <div class="flex items-center gap-3">
               <div class="w-8 h-8 rounded-lg bg-rose-100 text-rose-600 flex items-center justify-center shrink-0">
                 <svg viewBox="0 0 24 24" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
               </div>
               <div>
-                <p class="text-sm font-semibold text-slate-800">Juli 2026</p>
-                <p class="text-xs text-rose-500 font-medium">Belum dibayar</p>
+                <p class="text-sm font-semibold text-slate-800">{{  $tagihan->namaBulan() }} ( {{ $tagihan->tahunAjaran->nama ?? '-' }} )</p>
+                <p class="text-xs text-rose-500 font-medium">{{$tagihan->status}}</p>
               </div>
             </div>
-            <span class="text-sm font-bold text-slate-800">Rp 250.000</span>
+            <span class="text-sm font-bold text-slate-800">Rp {{ number_format($tagihan->nominal, 0, ',', '.') }}</span>
           </div>
-          <div class="flex items-center justify-between p-3 rounded-xl border border-rose-100 bg-rose-50/50">
-            <div class="flex items-center gap-3">
-              <div class="w-8 h-8 rounded-lg bg-rose-100 text-rose-600 flex items-center justify-center shrink-0">
-                <svg viewBox="0 0 24 24" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-              </div>
-              <div>
-                <p class="text-sm font-semibold text-slate-800">Agustus 2026</p>
-                <p class="text-xs text-rose-500 font-medium">Belum dibayar</p>
-              </div>
-            </div>
-            <span class="text-sm font-bold text-slate-800">Rp 250.000</span>
-          </div>
+          @endforeach
         </div>
       </div>
 
