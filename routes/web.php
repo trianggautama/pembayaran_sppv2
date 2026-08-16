@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DataController;
 use App\Http\Controllers\Admin\SiswaController;
 use App\Http\Controllers\Admin\KelasController;
 use App\Http\Controllers\Admin\UserController;
@@ -45,6 +46,7 @@ Route::middleware('auth')->group(function () {
         Route::resource('kelas', KelasController::class);
         Route::resource('users', UserController::class);
         Route::resource('tahun-ajaran', TahunAjaranController::class);
+        Route::resource('data', DataController::class);
 
         Route::get('tagihan', [AdminTagihanController::class, 'index'])->name('tagihan.index');
         Route::get('tagihan/cetak-pdf', [AdminTagihanController::class, 'cetakPdf'])->name('tagihan.cetak-pdf');
