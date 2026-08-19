@@ -12,11 +12,12 @@
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
     
+    {{-- sesuaikan route --}}
     <div class="mb-3">
         <a href="{{ route('buku.create') }}" class="btn btn-primary">Tambah Buku</a>
         <a href="{{ route('buku.cetak') }}" target="_blank" class="btn btn-secondary">Cetak Laporan</a>
     </div>
-
+    {{-- sesuaikan stribut data --}}
     <table class="table table-bordered">
         <thead>
             <tr>
@@ -39,6 +40,7 @@
                 <td>{{ $item->pengarang }}</td>
                 <td>Rp {{ number_format($item->harga, 0, ',', '.') }}</td>
                 <td>
+                    {{-- sesuaikan route --}}
                     <form action="{{ route('buku.destroy', $item->id) }}" method="POST" style="display:inline;">
                         @csrf
                         @method('DELETE')

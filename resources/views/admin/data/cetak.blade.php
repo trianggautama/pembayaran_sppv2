@@ -14,6 +14,7 @@
 <body onload="window.print()">
 
     <h2>Laporan Data Buku</h2>
+    {{-- sesuaikan atribut data --}}
     <table>
         <thead>
             <tr>
