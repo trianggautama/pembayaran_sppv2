@@ -65,9 +65,17 @@
 
 {{-- Tagihan Belum Bayar --}}
 <div class="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden mt-6">
-    <div class="px-6 py-4 border-b border-slate-100">
-        <h3 class="text-lg font-display font-semibold text-slate-800">Tagihan Belum Dibayar</h3>
-        <p class="text-xs text-slate-400 mt-1">Centang tagihan yang ingin dibayar</p>
+    <div class="px-6 py-4 border-b border-slate-100 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+        <div>
+            <h3 class="text-lg font-display font-semibold text-slate-800">Tagihan Belum Dibayar</h3>
+            <p class="text-xs text-slate-400 mt-1">Centang tagihan yang ingin dibayar</p>
+        </div>
+        @if($belumBayar->count() > 0)
+        <a href="{{ route('wali-siswa.tagihan.cetak-pdf', ['tipe' => 'belum_bayar']) }}" target="_blank" class="border border-slate-200 text-slate-700 font-semibold text-xs px-3 py-2 rounded-xl hover:bg-slate-50 transition flex items-center gap-1.5">
+            <svg viewBox="0 0 24 24" class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect width="12" height="8" x="6" y="14"/></svg>
+            Cetak PDF
+        </a>
+        @endif
     </div>
     <div class="overflow-x-auto">
         <table class="w-full text-left border-collapse">
@@ -236,8 +244,14 @@
 
 {{-- Riwayat Pembayaran --}}
 <div class="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden mt-6">
-    <div class="px-6 py-4 border-b border-slate-100">
+    <div class="px-6 py-4 border-b border-slate-100 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
         <h3 class="text-lg font-display font-semibold text-slate-800">Riwayat Pembayaran</h3>
+        @if($riwayatPembayaran->count() > 0)
+        <a href="{{ route('wali-siswa.tagihan.cetak-pdf', ['tipe' => 'sudah_bayar']) }}" target="_blank" class="border border-slate-200 text-slate-700 font-semibold text-xs px-3 py-2 rounded-xl hover:bg-slate-50 transition flex items-center gap-1.5">
+            <svg viewBox="0 0 24 24" class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect width="12" height="8" x="6" y="14"/></svg>
+            Cetak PDF
+        </a>
+        @endif
     </div>
     <div class="overflow-x-auto">
         <table class="w-full text-left border-collapse">

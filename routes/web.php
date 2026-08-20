@@ -84,6 +84,7 @@ Route::middleware('auth')->group(function () {
 
     Route::middleware('wali_siswa')->prefix('wali-siswa')->name('wali-siswa.')->group(function () {
         Route::get('tagihan', [WaliSiswaTagihanController::class, 'index'])->name('tagihan.index');
+        Route::get('tagihan/cetak-pdf', [WaliSiswaTagihanController::class, 'cetakPdf'])->name('tagihan.cetak-pdf');
         Route::get('pembayaran/create', [WaliSiswaPembayaranController::class, 'create'])->name('pembayaran.create');
         Route::post('pembayaran', [WaliSiswaPembayaranController::class, 'store'])->name('pembayaran.store');
         Route::get('pembayaran/{pembayaran}', [WaliSiswaPembayaranController::class, 'show'])->name('pembayaran.show');
