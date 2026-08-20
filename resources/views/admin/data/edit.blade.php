@@ -8,7 +8,7 @@
 <body class="container mt-4">
     <h2>Edit Buku</h2>
     {{-- sesuaikan route --}}
-    <form action="{{ route('buku.update', $buku->id) }}" method="POST">
+    <form action="{{ route('admin.buku.update', $buku->id) }}" method="POST">
         @csrf
         @method('PUT')
         <div class="mb-3">

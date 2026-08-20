@@ -8,7 +8,7 @@
 <body class="container mt-4">
     <h2>Tambah Buku Baru</h2>
     {{-- sesuaikan route --}}
-    <form action="{{ route('buku.store') }}" method="POST">
+    <form action="{{ route('admin.buku.store') }}" method="POST">
         @csrf
         <div class="mb-3">
             <label>Kode Buku</label>

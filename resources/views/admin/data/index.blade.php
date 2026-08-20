@@ -14,7 +14,7 @@
     
     {{-- sesuaikan route --}}
     <div class="mb-3">
-        <a href="{{ route('buku.create') }}" class="btn btn-primary">Tambah Buku</a>
+        <a href="{{ route('admin.buku.create') }}" class="btn btn-primary">Tambah Buku</a>
         <a href="{{ route('buku.cetak') }}" target="_blank" class="btn btn-secondary">Cetak Laporan</a>
     </div>
     {{-- sesuaikan stribut data --}}
@@ -41,7 +41,7 @@
                 <td>Rp {{ number_format($item->harga, 0, ',', '.') }}</td>
                 <td>
                     {{-- sesuaikan route --}}
-                    <form action="{{ route('buku.destroy', $item->id) }}" method="POST" style="display:inline;">
+                    <form action="{{ route('admin.buku.destroy', $item->id) }}" method="POST" style="display:inline;">
                         @csrf
                         @method('DELETE')
                         <a href="{{ route('buku.edit', $item->id) }}" class="btn btn-warning btn-sm">Edit</a>
