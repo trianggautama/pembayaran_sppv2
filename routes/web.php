@@ -43,6 +43,7 @@ Route::middleware('auth')->group(function () {
         Route::resource('wali-siswa', WaliSiswaController::class)->parameters(['wali-siswa' => 'wali_siswa:id']);
         
         Route::resource('siswa', SiswaController::class);
+        Route::get('siswa-cetak-pdf', [SiswaController::class, 'cetakPdf'])->name('siswa.cetak-pdf');
         Route::resource('kelas', KelasController::class);
         Route::resource('users', UserController::class);
         Route::resource('tahun-ajaran', TahunAjaranController::class);

@@ -7,6 +7,7 @@ use App\Models\Kelas;
 use App\Models\Siswa;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\DB;
 
 class SiswaController extends Controller
@@ -122,6 +123,40 @@ class SiswaController extends Controller
         });
 
         return redirect()->route('admin.siswa.index')->with('success', 'Data siswa berhasil diubah.');
+    }
+
+    public function cetakPdf(Request $request)
+    {
+        $query = Siswa::with('kelas');
+
+        if ($request->filled('cari')) {
+            $cari = $request->cari;
+            $query->where(function ($q) use ($cari) {
+                $q->where('nis', 'like', "%{$cari}%")
+                  ->orWhere('nama', 'like', "%{$cari}%");
+            });
+        }
+
+        if ($request->filled('kelas_id')) {
+            $query->where('kelas_id', $request->kelas_id);
+        }
+
+        $siswaList = $query->orderBy('nama')->get();
+        $kelasList = Kelas::orderBy('tingkat')->orderBy('nama_kelas')->get();
+
+        $filterInfo = [];
+        if ($request->filled('cari')) {
+            $filterInfo[] = 'Pencarian: ' . $request->cari;
+        }
+        if ($request->filled('kelas_id')) {
+            $kelas = $kelasList->firstWhere('id', $request->kelas_id);
+            $filterInfo[] = 'Kelas: ' . ($kelas ? $kelas->nama_kelas : '-');
+        }
+
+        $pdf = Pdf::loadView('admin.siswa.cetak-pdf', compact('siswaList', 'filterInfo'))
+            ->setPaper('a4', 'portrait');
+
+        return $pdf->stream('data-siswa.pdf');
     }
 
     public function destroy($id)
