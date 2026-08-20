@@ -60,15 +60,15 @@ class DatabaseSeeder extends Seeder
             'tanggal_selesai' => '2026-06-19',
         ]);
 
-        // \App\Models\Kelas::create(['nama_kelas' => '1A', 'tingkat' => 1, 'wali_kelas' => 'Ibu Sri Wahyuni']);
-        // \App\Models\Kelas::create(['nama_kelas' => '2A', 'tingkat' => 2, 'wali_kelas' => 'Bapak Agus Riyanto']);
-        // \App\Models\Kelas::create(['nama_kelas' => '2B', 'tingkat' => 2, 'wali_kelas' => 'Ibu Ratna Sari']);
-        // \App\Models\Kelas::create(['nama_kelas' => '3A', 'tingkat' => 3, 'wali_kelas' => 'Bapak Joko Susilo']);
-        // \App\Models\Kelas::create(['nama_kelas' => '3C', 'tingkat' => 3, 'wali_kelas' => 'Ibu Nurul Hidayah']);
-        // \App\Models\Kelas::create(['nama_kelas' => '4A', 'tingkat' => 4, 'wali_kelas' => 'Bapak Dedi Kurniawan']);
-        // \App\Models\Kelas::create(['nama_kelas' => '5A', 'tingkat' => 5, 'wali_kelas' => 'Ibu Mega Puspita']);
-        // \App\Models\Kelas::create(['nama_kelas' => '6A', 'tingkat' => 6, 'wali_kelas' => 'Bapak Rudi Hartono']);
+        \App\Models\Kelas::create(['nama_kelas' => '1A', 'tingkat' => 1, 'wali_kelas' => 'Ibu Sri Wahyuni']);
+        \App\Models\Kelas::create(['nama_kelas' => '2A', 'tingkat' => 2, 'wali_kelas' => 'Bapak Agus Riyanto']);
+        \App\Models\Kelas::create(['nama_kelas' => '2B', 'tingkat' => 2, 'wali_kelas' => 'Ibu Ratna Sari']);
+        \App\Models\Kelas::create(['nama_kelas' => '3A', 'tingkat' => 3, 'wali_kelas' => 'Bapak Joko Susilo']);
+        \App\Models\Kelas::create(['nama_kelas' => '3C', 'tingkat' => 3, 'wali_kelas' => 'Ibu Nurul Hidayah']);
+        \App\Models\Kelas::create(['nama_kelas' => '4A', 'tingkat' => 4, 'wali_kelas' => 'Bapak Dedi Kurniawan']);
+        \App\Models\Kelas::create(['nama_kelas' => '5A', 'tingkat' => 5, 'wali_kelas' => 'Ibu Mega Puspita']);
+        \App\Models\Kelas::create(['nama_kelas' => '6A', 'tingkat' => 6, 'wali_kelas' => 'Bapak Rudi Hartono']);
 
-        // $this->call(SiswaSeeder::class);
+        $this->call(SiswaSeeder::class);
     }
 }
