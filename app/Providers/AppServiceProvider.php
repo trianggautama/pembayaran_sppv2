@@ -32,5 +32,9 @@ class AppServiceProvider extends ServiceProvider
                 $view->with('latestNotifikasis', \App\Models\Notifikasi::where('user_id', $user->id)->latest()->limit(5)->get());
             }
         });
+
+        if (config('app.env') === 'production') {
+            \URL::forceScheme('https');
+        }
     }
 }
