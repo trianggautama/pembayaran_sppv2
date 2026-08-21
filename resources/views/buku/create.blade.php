@@ -24,6 +24,15 @@
             <input type="text" name="kategori" class="form-control" required>
         </div>
         <div class="mb-3">
+            <label>Kategori</label>
+            <select name="kategori" id="kategori" class="form-control">
+                <option value="">-- Pilih Kategori --</option>
+                <option value="Novel">Novel</option>
+                <option value="Komik">Komik</option>
+                <option value="Buku Pelajaran">Buku Pelajaran</option>
+            </select>
+        </div>
+        <div class="mb-3">
             <label>Pengarang</label>
             <input type="text" name="pengarang" class="form-control" required>
         </div>

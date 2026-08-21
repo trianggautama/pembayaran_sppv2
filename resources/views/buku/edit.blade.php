@@ -22,7 +22,12 @@
         </div>
         <div class="mb-3">
             <label>Kategori</label>
-            <input type="text" name="kategori" class="form-control" value="{{ $buku->kategori }}" required>
+            <select name="kategori" id="kategori" class="form-control">
+                <option value="">-- Pilih Kategori --</option>
+                <option value="Novel" {{ $buku->kategori == 'Novel' ? 'selected' : '' }}>Novel</option>
+                <option value="Komik" {{ $buku->kategori == 'Komik' ? 'selected' : '' }}>Komik</option>
+                <option value="Buku Pelajaran" {{ $buku->kategori == 'Buku Pelajaran' ? 'selected' : '' }}>Buku Pelajaran</option>
+            </select>
         </div>
         <div class="mb-3">
             <label>Pengarang</label>
